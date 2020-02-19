@@ -5,15 +5,13 @@ public class Player {
     private final List<Double> probability;
     private int totalRuns;
     private int totalBallsPlayed;
+    private boolean isOut;
 
-    public Player(String name, List<Double> probability, int totalRuns) {
+    public Player(String name, List<Double> probability, int totalRuns, int totalBallsPlayed, boolean isOut) {
         this.name = name;
         this.probability = probability;
         this.totalRuns = totalRuns;
-    }
-
-    public Player(String name, List<Double> probability) {
-        this.name = name;
-        this.probability = probability;
+        this.totalBallsPlayed = totalBallsPlayed;
+        this.isOut = isOut;
     }
 }
