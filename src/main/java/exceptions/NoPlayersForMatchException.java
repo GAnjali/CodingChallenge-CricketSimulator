@@ -4,6 +4,7 @@ public class NoPlayersForMatchException extends Exception {
     private final String error;
 
     public NoPlayersForMatchException(){
+        super();
         this.error = "Team size is insufficient";
     }
 
