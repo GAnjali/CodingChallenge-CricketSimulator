@@ -1,6 +1,5 @@
 package gamestrategy;
 
-import exceptions.PlayerNotFoundException;
 import models.Player;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,14 +30,14 @@ public class RandomWeightedGameStrategyTest {
     }
 
     @Test
-    public void shouldGetScoreWhenScoreRunCalled() throws PlayerNotFoundException {
-        int value = randomWeightedGameStrategy.getScoredRuns(strikePlayer, players);
+    public void shouldGetScoreWhenScoreRunCalled() {
+        int value = randomWeightedGameStrategy.getScoredRuns(strikePlayer);
         assertTrue(value >= 0);
     }
 
     @Test
-    public void shouldNotGetNegativeScoreWhenScoreRunCalled() throws PlayerNotFoundException {
-        int value = randomWeightedGameStrategy.getScoredRuns(strikePlayer, players);
+    public void shouldNotGetNegativeScoreWhenScoreRunCalled() {
+        int value = randomWeightedGameStrategy.getScoredRuns(strikePlayer);
         assertNotEquals(-1, value);
     }
 }
