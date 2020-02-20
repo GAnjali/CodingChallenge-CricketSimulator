@@ -1,6 +1,5 @@
 package models;
 
-import models.Player;
 import org.junit.Test;
 
 import java.util.Arrays;
