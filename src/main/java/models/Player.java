@@ -24,16 +24,4 @@ public class Player {
     public List<Double> getProbability() {
         return probability;
     }
-
-    public int getTotalRuns() {
-        return totalRuns;
-    }
-
-    public int getTotalBallsPlayed() {
-        return totalBallsPlayed;
-    }
-
-    public boolean isOut() {
-        return isOut;
-    }
 }

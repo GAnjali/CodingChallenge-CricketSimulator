@@ -1,16 +1,12 @@
 package models;
 
-import exceptions.NoPlayersForMatchException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Game {
 
-    public Match intializeMatch(List<Player> players) throws NoPlayersForMatchException {
-        if (players.isEmpty())
-            throw new NoPlayersForMatchException();
+    public Match intializeMatch(List<Player> players) {
         return new Match("Bengaluru", "Chennai", players.get(0), players.get(1), 0, 0, 4, 40, 4);
     }
 

@@ -3,15 +3,15 @@ package models;
 public class Match {
     private final String playingTeam;
     private final String opposingTeam;
-    private final int wicketsLeft;
-    private final int runNeededToWin;
-    private final int oversLeft;
+    private final int overs;
+    private int wicketsLeft;
+    private int runNeededToWin;
     private Player stricker;
     private Player nonStricker;
     private int runsCount;
     private int ballsPlayed;
 
-    public Match(String playingTeam, String opposingTeam, Player stricker, Player nonStricker, int runsCount, int ballsPlayed, int wicketsLeft, int runNeededToWin, int oversLeft) {
+    public Match(String playingTeam, String opposingTeam, Player stricker, Player nonStricker, int runsCount, int ballsPlayed, int wicketsLeft, int runNeededToWin, int overs) {
         this.playingTeam = playingTeam;
         this.opposingTeam = opposingTeam;
         this.stricker = stricker;
@@ -20,7 +20,7 @@ public class Match {
         this.ballsPlayed = ballsPlayed;
         this.wicketsLeft = wicketsLeft;
         this.runNeededToWin = runNeededToWin;
-        this.oversLeft = oversLeft;
+        this.overs = overs;
     }
 
     public String getPlayingTeam() {
@@ -39,7 +39,7 @@ public class Match {
         return runNeededToWin;
     }
 
-    public int getOversLeft() {
-        return oversLeft;
+    public int getOvers() {
+        return overs;
     }
 }
