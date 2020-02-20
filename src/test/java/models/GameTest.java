@@ -1,5 +1,6 @@
 package models;
 
+import exceptions.NoPlayersForMatchException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,10 +17,10 @@ public class GameTest {
     List<Player> players;
 
     @Before
-    public void init() {
+    public void init() throws NoPlayersForMatchException {
         game = new Game();
-        match = game.intializeMatch();
         players = game.intializePlayers();
+        match = game.intializeMatch(players);
     }
 
     @Test
@@ -37,12 +38,12 @@ public class GameTest {
     }
 
     @Test
-    public void testShouldReturnArrayListWhenInitializePlayersCalled(){
+    public void testShouldReturnArrayListWhenInitializePlayersCalled() {
         assertTrue(players instanceof ArrayList);
     }
 
     @Test
-    public void testShouldVerifyPlayersWhenInitializePlayersCalled(){
+    public void testShouldVerifyPlayersWhenInitializePlayersCalled() {
         assertEquals("Kirat Boli", players.get(0).getName());
         assertEquals("NS Nodhi", players.get(1).getName());
         assertEquals("R Rumrah", players.get(2).getName());
