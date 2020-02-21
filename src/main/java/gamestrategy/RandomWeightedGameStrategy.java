@@ -21,7 +21,7 @@ public class RandomWeightedGameStrategy implements GameStrategy {
 
     public int generateRandomRuns(List<Double> playerProbability, double randomNumber) {
         double weight = 0;
-        for (int run = 0; run <= playerProbability.size(); run++) {
+        for (int run = 0; run < playerProbability.size(); run++) {
             weight += playerProbability.get(run);
             if (randomNumber < weight) {
                 return run;
