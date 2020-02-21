@@ -3,11 +3,9 @@ package models;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class GameTest {
 
@@ -19,21 +17,16 @@ public class GameTest {
     public void init() {
         game = new Game();
         players = game.intializePlayers();
-        match = game.intializeMatch(players);
+        match = game.intializeMatch();
     }
 
     @Test
     public void testShouldVerifyMatchObjectWhenInitializeMatch() {
         assertEquals("Bengaluru", match.getPlayingTeam());
         assertEquals("Chennai", match.getOpposingTeam());
-        assertEquals(4, match.getWicketsLeft());
+        assertEquals(4, match.getWickets());
         assertEquals(40, match.getRunNeededToWin());
         assertEquals(4, match.getOvers());
-    }
-
-    @Test
-    public void testShouldReturnArrayListWhenInitializePlayersCalled() {
-        assertTrue(players instanceof ArrayList);
     }
 
     @Test
