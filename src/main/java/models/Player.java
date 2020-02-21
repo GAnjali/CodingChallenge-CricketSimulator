@@ -24,4 +24,28 @@ public class Player {
     public List<Double> getProbability() {
         return probability;
     }
+
+    public int getTotalRuns() {
+        return totalRuns;
+    }
+
+    public void setTotalRuns(int totalRuns) {
+        this.totalRuns = totalRuns;
+    }
+
+    public int getTotalBallsPlayed() {
+        return totalBallsPlayed;
+    }
+
+    public void setTotalBallsPlayed(int totalBallsPlayed) {
+        this.totalBallsPlayed = totalBallsPlayed;
+    }
+
+    public boolean isOut() {
+        return isOut;
+    }
+
+    public void setOut(boolean out) {
+        isOut = out;
+    }
 }
