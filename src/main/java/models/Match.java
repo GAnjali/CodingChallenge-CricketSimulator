@@ -25,11 +25,9 @@ public class Match {
         int totalScore = 0;
         MatchStatus status = getInitialStatusOfMatch(players);
         while (!isMatchCompleted(status)) {
-            if (isOverStarts(status))
-                commentary.overCommentary(status);
-            Player striker = status.getCurrentStriker();
-            int scoredRuns = gameStrategy.getScoredRuns(striker);
-            updateStatus(scoredRuns, striker, status);
+            displayOverCommentary(status, commentary);
+            int scoredRuns = gameStrategy.getScoredRuns(status.getCurrentStriker());
+            updateStatus(scoredRuns, status.getCurrentStriker(), status);
             commentary.ballCommentary(status);
             status = processNextMove(status, players, rules);
             if (status.getCurrentWicketLeft() == 0 || totalScore > status.getCurrentRunsToWin())
@@ -38,28 +36,25 @@ public class Match {
         displayMatchSummary(status, players, commentary);
     }
 
-    private boolean isOverStarts(MatchStatus status) {
-        return status.getCurrentBallsPlayed() % 6 == 0;
-    }
-
-    private void displayMatchSummary(MatchStatus status, List<Player> players, Commentary commentary) {
-        result(status, commentary);
-        commentary.playersScores(players, status);
-    }
-
-    private void result(MatchStatus status, Commentary commentary) {
-        if (status.getCurrentRunsToWin() <= 0)
-            commentary.wonCommentary(this.playingTeam, status);
-        else
-            commentary.looseCommentary(this.playingTeam, status);
-    }
-
     private MatchStatus getInitialStatusOfMatch(List<Player> players) {
         return new MatchStatus(players.get(0), players.get(1), 0, this.wickets, 0, this.runNeededToWin, false);
     }
 
     private boolean isMatchCompleted(MatchStatus status) {
         return status.getCurrentBallsPlayed() >= getTotalBalls();
+    }
+
+    private int getTotalBalls() {
+        return this.overs * 6;
+    }
+
+    private void displayOverCommentary(MatchStatus status, Commentary commentary) {
+        if (isOverStarts(status))
+            commentary.overCommentary(status);//commentary
+    }
+
+    private boolean isOverStarts(MatchStatus status) {
+        return status.getCurrentBallsPlayed() % 6 == 0;
     }
 
     private void updateStatus(int runsScored, Player striker, MatchStatus status) {
@@ -96,7 +91,15 @@ public class Match {
         return status;
     }
 
-    private int getTotalBalls() {
-        return this.overs * 6;
+    private void displayMatchSummary(MatchStatus status, List<Player> players, Commentary commentary) {
+        result(status, commentary);
+        commentary.playersScores(players, status);
+    }
+
+    private void result(MatchStatus status, Commentary commentary) {
+        if (status.getCurrentRunsToWin() <= 0)
+            commentary.wonCommentary(this.playingTeam, status);
+        else
+            commentary.looseCommentary(this.playingTeam, status);
     }
 }
