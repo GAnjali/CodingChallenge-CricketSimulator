@@ -43,12 +43,8 @@ public class Commentary {
     }
 
     private String getPlayerOnCreaseSuffix(Player player, ScoreBoard scoreBoard) {
-        if (!isPlayerOnCrease(player, scoreBoard))
+        if (!scoreBoard.onCrease(player))
             return "";
         return "*";
-    }
-
-    private boolean isPlayerOnCrease(Player player, ScoreBoard scoreBoard) {
-        return (player.equals(scoreBoard.getCurrentStriker()) || player.equals(scoreBoard.getCurrentNonStriker()));
     }
 }

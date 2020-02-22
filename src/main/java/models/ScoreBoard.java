@@ -75,4 +75,8 @@ public class ScoreBoard {
     public void setCurrentPlayerIsOut(boolean currentPlayerIsOut) {
         this.currentPlayerIsOut = currentPlayerIsOut;
     }
+
+    public boolean onCrease(Player player) {
+        return (player.equals(this.getCurrentStriker()) || player.equals(this.getCurrentNonStriker()));
+    }
 }
