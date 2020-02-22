@@ -3,13 +3,10 @@ package rules;
 import exceptions.PlayerNotFoundException;
 import models.MatchStatus;
 import models.Player;
-import utils.MatchUtils;
 
 import java.util.List;
 
 public class PlayerOutRule implements Rule {
-    MatchUtils matchUtils = new MatchUtils();
-
     @Override
     public MatchStatus processStatus(MatchStatus status, List<Player> players) throws PlayerNotFoundException {
         if (status.isCurrentPlayerIsOut())
@@ -59,13 +56,10 @@ public class PlayerOutRule implements Rule {
     private void addNewNonStriker(MatchStatus status, Player newPlayer, List<Player> players) throws PlayerNotFoundException {
         status.setCurrentNonStriker(newPlayer);
         status.setCurrentPlayerIsOut(false);
-        if (newPlayer != null)
-            status.setCurrentPlayerPosition(matchUtils.getPlayerPosition(newPlayer, players));
     }
 
     private void updateStriker(Player newPlayer, MatchStatus status, List<Player> players) throws PlayerNotFoundException {
         status.setCurrentStriker(newPlayer);
         status.setCurrentPlayerIsOut(false);
-        status.setCurrentPlayerPosition(matchUtils.getPlayerPosition(newPlayer, players));
     }
 }

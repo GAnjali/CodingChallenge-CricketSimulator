@@ -35,7 +35,7 @@ public class CommentaryTest {
         players = new ArrayList<>();
         players.add(new Player("Kirat Boli", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
         players.add(new Player("NS Nodhi", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
-        status = new MatchStatus(players.get(0), players.get(1), 0, 4, 0, 40, false, 0);
+        status = new MatchStatus(players.get(0), players.get(1), 0, 4, 0, 40, false);
     }
 
     @Test

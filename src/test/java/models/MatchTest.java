@@ -44,7 +44,7 @@ public class MatchTest {
         players.add(new Player("NS Nodhi", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
         players.add(new Player("R Rumrah", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
         players.add(new Player("Shashi Henra", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
-        status = new MatchStatus(players.get(0), players.get(1), 0, 4, 0, 40, false, 0);
+        status = new MatchStatus(players.get(0), players.get(1), 0, 4, 0, 40, false);
         match.simulate(players, runStrategy, rules, commentary);
         for (Player player : players) {
             assertTrue(player.isOut());
@@ -57,7 +57,7 @@ public class MatchTest {
         players.add(new Player("NS Nodhi", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0, 1.0), 0, 0, false));
         players.add(new Player("R Rumrah", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0, 1.0), 0, 0, false));
         players.add(new Player("Shashi Henra", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0, 1.0), 0, 0, false));
-        status = new MatchStatus(players.get(0), players.get(1), 0, 4, 0, 40, false, 0);
+        status = new MatchStatus(players.get(0), players.get(1), 0, 4, 0, 40, false);
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         match.simulate(players, runStrategy, rules, commentary);

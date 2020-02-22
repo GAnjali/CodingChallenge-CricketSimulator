@@ -8,10 +8,9 @@ public class MatchStatus {
     private int currentBallsPlayed;
     private int currentRunsToWin;
     private boolean currentPlayerIsOut;
-    private int currentPlayerPosition;
 
     public MatchStatus(Player currentStriker, Player currentNonStriker, int currentRunCount, int currentWicketLeft,
-                       int currentBallsPlayed, int currentRunsToWin, boolean currentPlayerIsOut, int currentPlayerPosition) {
+                       int currentBallsPlayed, int currentRunsToWin, boolean currentPlayerIsOut) {
         this.currentStriker = currentStriker;
         this.currentNonStriker = currentNonStriker;
         this.currentRunCount = currentRunCount;
@@ -19,7 +18,6 @@ public class MatchStatus {
         this.currentBallsPlayed = currentBallsPlayed;
         this.currentRunsToWin = currentRunsToWin;
         this.currentPlayerIsOut = currentPlayerIsOut;
-        this.currentPlayerPosition = currentPlayerPosition;
     }
 
     public Player getCurrentStriker() {
@@ -76,13 +74,5 @@ public class MatchStatus {
 
     public void setCurrentPlayerIsOut(boolean currentPlayerIsOut) {
         this.currentPlayerIsOut = currentPlayerIsOut;
-    }
-
-    public int getCurrentPlayerPosition() {
-        return currentPlayerPosition;
-    }
-
-    public void setCurrentPlayerPosition(int currentPlayerPosition) {
-        this.currentPlayerPosition = currentPlayerPosition;
     }
 }

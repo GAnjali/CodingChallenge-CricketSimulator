@@ -56,7 +56,7 @@ public class Match {
     }
 
     private MatchStatus getInitialStatusOfMatch(List<Player> players) {
-        return new MatchStatus(players.get(0), players.get(1), 0, this.wickets, 0, this.runNeededToWin, false, 0);
+        return new MatchStatus(players.get(0), players.get(1), 0, this.wickets, 0, this.runNeededToWin, false);
     }
 
     private boolean isMatchCompleted(MatchStatus status) {
