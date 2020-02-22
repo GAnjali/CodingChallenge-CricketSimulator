@@ -1,5 +1,8 @@
-package models;
+package directory;
 
+import helper.MatchHelper;
+import models.Match;
+import models.Player;
 import org.junit.Before;
 import org.junit.Test;
 import rules.Rule;

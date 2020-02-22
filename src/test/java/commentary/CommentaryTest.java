@@ -1,7 +1,7 @@
 package commentary;
 
 import models.Match;
-import models.MatchHelper;
+import helper.MatchHelper;
 import models.Player;
 import models.ScoreBoard;
 import org.junit.Before;

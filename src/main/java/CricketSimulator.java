@@ -1,7 +1,7 @@
 import commentary.Commentary;
 import gamestrategy.RandomWeightedGameStrategy;
 import models.Match;
-import models.MatchHelper;
+import helper.MatchHelper;
 import models.Player;
 import rules.Rule;
 

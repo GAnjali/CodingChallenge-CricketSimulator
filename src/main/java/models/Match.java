@@ -91,11 +91,11 @@ public class Match {
     }
 
     private void displayMatchSummary(ScoreBoard scoreBoard, List<Player> players, Commentary commentary) {
-        result(scoreBoard, commentary);
+        displayResult(scoreBoard, commentary);
         commentary.displayPlayersScores(players, scoreBoard);
     }
 
-    private void result(ScoreBoard scoreBoard, Commentary commentary) {
+    private void displayResult(ScoreBoard scoreBoard, Commentary commentary) {
         if (scoreBoard.getCurrentRunsToWin() <= 0)
             commentary.displayWonCommentary(this.playingTeam, scoreBoard);
         else

@@ -1,5 +1,7 @@
-package models;
+package helper;
 
+import models.Match;
+import models.Player;
 import rules.ChangeStrikeRule;
 import rules.PlayerOutRule;
 import rules.Rule;
