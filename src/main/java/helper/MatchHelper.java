@@ -1,5 +1,7 @@
 package helper;
 
+import commentary.Commentary;
+import gamestrategy.RandomWeightedGameStrategy;
 import models.Match;
 import models.Player;
 import rules.ChangeStrikeRule;
@@ -30,5 +32,13 @@ public class MatchHelper {
         rules[0] = new PlayerOutRule();
         rules[1] = new ChangeStrikeRule();
         return rules;
+    }
+
+    public RandomWeightedGameStrategy createGameStrategy() {
+        return new RandomWeightedGameStrategy();
+    }
+
+    public Commentary createCommentary() {
+        return new Commentary();
     }
 }
