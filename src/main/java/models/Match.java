@@ -28,13 +28,13 @@ public class Match {
         int totalScore = 0;
         ScoreBoard scoreBoard = getInitialScoreBoardOfMatch(players);
         while (!isMatchCompleted(totalScore, scoreBoard)) {
-            displayOverCommentary(scoreBoard, commentary);
+            generateOverCommentary(scoreBoard, commentary);
             int scoredRuns = gameStrategy.getScoredRuns(scoreBoard.getCurrentStriker());
             updateScoreBoard(scoredRuns, scoreBoard);
-            commentary.displayBallCommentary(scoreBoard);
+            commentary.generateBallByBallMessage(scoreBoard);
             applyRules(scoreBoard, players, rules);
         }
-        displayMatchSummary(scoreBoard, players, commentary);
+        generateMatchSummary(scoreBoard, players, commentary);
     }
 
     private ScoreBoard getInitialScoreBoardOfMatch(List<Player> players) {
@@ -49,9 +49,9 @@ public class Match {
         return this.overs * NO_OF_BALLS_PER_OVER;
     }
 
-    private void displayOverCommentary(ScoreBoard scoreBoard, Commentary commentary) {
+    private void generateOverCommentary(ScoreBoard scoreBoard, Commentary commentary) {
         if (isOverStarts(scoreBoard))
-            commentary.displayOverCommentary(scoreBoard);
+            commentary.generateOverMessage(scoreBoard);
     }
 
     private boolean isOverStarts(ScoreBoard scoreBoard) {
@@ -90,15 +90,15 @@ public class Match {
         }
     }
 
-    private void displayMatchSummary(ScoreBoard scoreBoard, List<Player> players, Commentary commentary) {
-        displayResult(scoreBoard, commentary);
-        commentary.displayPlayersScores(players, scoreBoard);
+    private void generateMatchSummary(ScoreBoard scoreBoard, List<Player> players, Commentary commentary) {
+        generateResult(scoreBoard, commentary);
+        commentary.generateScores(players, scoreBoard);
     }
 
-    private void displayResult(ScoreBoard scoreBoard, Commentary commentary) {
+    private void generateResult(ScoreBoard scoreBoard, Commentary commentary) {
         if (scoreBoard.getCurrentRunsToWin() <= 0)
-            commentary.displayWonCommentary(this.playingTeam, scoreBoard);
+            commentary.generateWonMessage(this.playingTeam, scoreBoard);
         else
-            commentary.displayLostCommentary(this.playingTeam, scoreBoard);
+            commentary.generateLostMessage(this.playingTeam, scoreBoard);
     }
 }
