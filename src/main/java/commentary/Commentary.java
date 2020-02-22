@@ -32,7 +32,7 @@ public class Commentary {
         System.out.print("\n\n" + playingTeam + " won by " + scoreBoard.getCurrentWicketLeft() + " wicket" + getSuffixString(scoreBoard.getCurrentWicketLeft()) + " and " + (40 - scoreBoard.getCurrentBallsPlayed()) + " ball" + getSuffixString(scoreBoard.getCurrentBallsPlayed()) + " remaining");
     }
 
-    public void displayLooseCommentary(String playingTeam, ScoreBoard scoreBoard) {
+    public void displayLostCommentary(String playingTeam, ScoreBoard scoreBoard) {
         System.out.print("\n\n" + playingTeam + " Lost by " + scoreBoard.getCurrentRunsToWin() + " run needed to win and " + (40 - scoreBoard.getCurrentBallsPlayed()) + " ball" + getSuffixString(scoreBoard.getCurrentBallsPlayed()) + " remaining");
     }
 

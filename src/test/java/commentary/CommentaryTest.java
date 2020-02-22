@@ -90,7 +90,7 @@ public class CommentaryTest {
         scoreBoard.setCurrentRunsToWin(20);
         scoreBoard.setCurrentWicketLeft(0);
         scoreBoard.setCurrentBallsPlayed(20);
-        commentary.displayLooseCommentary("Bengaluru", scoreBoard);
+        commentary.displayLostCommentary("Bengaluru", scoreBoard);
         expectedCommentary = "\n\nBengaluru Lost by 20 run needed to win and 20 balls remaining";
         assertEquals(expectedCommentary, outContent.toString());
     }

@@ -99,6 +99,6 @@ public class Match {
         if (scoreBoard.getCurrentRunsToWin() <= 0)
             commentary.displayWonCommentary(this.playingTeam, scoreBoard);
         else
-            commentary.displayLooseCommentary(this.playingTeam, scoreBoard);
+            commentary.displayLostCommentary(this.playingTeam, scoreBoard);
     }
 }
