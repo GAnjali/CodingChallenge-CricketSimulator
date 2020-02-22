@@ -1,7 +1,7 @@
 package commentary;
 
-import models.Game;
 import models.Match;
+import models.MatchHelper;
 import models.Player;
 import models.ScoreBoard;
 import org.junit.Before;
@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 
 public class CommentaryTest {
 
-    Game game;
+    MatchHelper matchHelper;
     Match match;
     ScoreBoard scoreBoard;
     List<Player> players;
@@ -27,8 +27,8 @@ public class CommentaryTest {
 
     @Before
     public void init() {
-        game = new Game();
-        match = game.intializeMatch();
+        matchHelper = new MatchHelper();
+        match = matchHelper.createMatch();
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         commentary = new Commentary();

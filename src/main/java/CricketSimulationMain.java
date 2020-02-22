@@ -1,10 +1,8 @@
 import commentary.Commentary;
 import gamestrategy.RandomWeightedGameStrategy;
-import models.Game;
 import models.Match;
+import models.MatchHelper;
 import models.Player;
-import rules.ChangeStrikeRule;
-import rules.PlayerOutRule;
 import rules.Rule;
 
 import java.util.List;
@@ -12,15 +10,15 @@ import java.util.List;
 public class CricketSimulationMain {
 
     public static void main(String[] args) {
-        Game game = new Game();
-        List<Player> players = game.intializePlayers();
-        RandomWeightedGameStrategy runStrategy = new RandomWeightedGameStrategy();
-        Rule[] rules = new Rule[2];
-        rules[0] = new PlayerOutRule();
-        rules[1] = new ChangeStrikeRule();
-        Match match = game.intializeMatch();
+        MatchHelper matchHelper = new MatchHelper();
+        List<Player> players = matchHelper.createPlayers();
+        Match match = matchHelper.createMatch();
+        Rule[] rules = matchHelper.createRules();
+
+        RandomWeightedGameStrategy gameStrategy = new RandomWeightedGameStrategy();
         Commentary commentary = new Commentary();
-        match.simulate(players, runStrategy, rules, commentary);
+
+        match.simulate(players, gameStrategy, rules, commentary);
     }
 }
 
