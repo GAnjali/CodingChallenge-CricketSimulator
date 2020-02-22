@@ -7,7 +7,7 @@ import rules.Rule;
 
 import java.util.List;
 
-public class CricketSimulationMain {
+public class CricketSimulator {
 
     public static void main(String[] args) {
         MatchHelper matchHelper = new MatchHelper();
