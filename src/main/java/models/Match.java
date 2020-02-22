@@ -23,83 +23,82 @@ public class Match {
 
     public void simulate(List<Player> players, RandomWeightedGameStrategy gameStrategy, Rule[] rules, Commentary commentary) {
         int totalScore = 0;
-        MatchStatus status = getInitialStatusOfMatch(players);
-        while (!isMatchCompleted(status)) {
-            displayOverCommentary(status, commentary);
-            int scoredRuns = gameStrategy.getScoredRuns(status.getCurrentStriker());
-            updateStatus(scoredRuns, status.getCurrentStriker(), status);
-            commentary.generateBallCommentary(status);
-            status = processNextMove(status, players, rules);
-            if (status.getCurrentWicketLeft() == 0 || totalScore > status.getCurrentRunsToWin())
+        ScoreBoard scoreBoard = getInitialScoreBoardOfMatch(players);
+        while (!isMatchCompleted(scoreBoard)) {
+            displayOverCommentary(scoreBoard, commentary);
+            int scoredRuns = gameStrategy.getScoredRuns(scoreBoard.getCurrentStriker());
+            updateScoreBoard(scoredRuns, scoreBoard);
+            commentary.displayBallCommentary(scoreBoard);
+            applyRules(scoreBoard, players, rules);
+            if (scoreBoard.getCurrentWicketLeft() == 0 || totalScore > scoreBoard.getCurrentRunsToWin())
                 break;
         }
-        displayMatchSummary(status, players, commentary);
+        displayMatchSummary(scoreBoard, players, commentary);
     }
 
-    private MatchStatus getInitialStatusOfMatch(List<Player> players) {
-        return new MatchStatus(players.get(0), players.get(1), 0, this.wickets, 0, this.runNeededToWin, false);
+    private ScoreBoard getInitialScoreBoardOfMatch(List<Player> players) {
+        return new ScoreBoard(players.get(0), players.get(1), 0, this.wickets, 0, this.runNeededToWin, false);
     }
 
-    private boolean isMatchCompleted(MatchStatus status) {
-        return status.getCurrentBallsPlayed() >= getTotalBalls();
+    private boolean isMatchCompleted(ScoreBoard scoreBoard) {
+        return scoreBoard.getCurrentBallsPlayed() >= getTotalBalls();
     }
 
     private int getTotalBalls() {
         return this.overs * 6;
     }
 
-    private void displayOverCommentary(MatchStatus status, Commentary commentary) {
-        if (isOverStarts(status))
-            commentary.generateOverCommentary(status);//commentary
+    private void displayOverCommentary(ScoreBoard scoreBoard, Commentary commentary) {
+        if (isOverStarts(scoreBoard))
+            commentary.generateOverCommentary(scoreBoard);//commentary
     }
 
-    private boolean isOverStarts(MatchStatus status) {
-        return status.getCurrentBallsPlayed() % 6 == 0;
+    private boolean isOverStarts(ScoreBoard scoreBoard) {
+        return scoreBoard.getCurrentBallsPlayed() % 6 == 0;
     }
 
-    private void updateStatus(int runsScored, Player striker, MatchStatus status) {
+    private void updateScoreBoard(int runsScored, ScoreBoard scoreBoard) {
         if (runsScored == 7) {
-            updateStatusWhenStrickerGetsOut(striker, status);
+            updatescoreBoardWhenStrickerGetsOut(scoreBoard.getCurrentStriker(), scoreBoard);
         } else {
-            updateStatusWhenStrikerScoredRuns(runsScored, striker, status);
+            updatescoreBoardWhenStrikerScoredRuns(runsScored, scoreBoard.getCurrentStriker(), scoreBoard);
         }
-        increaseBallCount(striker, status);
+        increaseBallCount(scoreBoard.getCurrentStriker(), scoreBoard);
     }
 
-    private void updateStatusWhenStrickerGetsOut(Player striker, MatchStatus status) {
+    private void updatescoreBoardWhenStrickerGetsOut(Player striker, ScoreBoard scoreBoard) {
         striker.setOut(true);
-        status.setCurrentPlayerIsOut(true);
-        status.setCurrentWicketLeft(status.getCurrentWicketLeft() - 1);
+        scoreBoard.setCurrentPlayerIsOut(true);
+        scoreBoard.setCurrentWicketLeft(scoreBoard.getCurrentWicketLeft() - 1);
     }
 
 
-    private void updateStatusWhenStrikerScoredRuns(int runsScored, Player striker, MatchStatus status) {
+    private void updatescoreBoardWhenStrikerScoredRuns(int runsScored, Player striker, ScoreBoard scoreBoard) {
         striker.setTotalRuns(striker.getTotalRuns() + runsScored);
-        status.setCurrentRunCount(runsScored);
-        status.setCurrentRunsToWin(status.getCurrentRunsToWin() - runsScored);
+        scoreBoard.setCurrentRunCount(runsScored);
+        scoreBoard.setCurrentRunsToWin(scoreBoard.getCurrentRunsToWin() - runsScored);
     }
 
-    private void increaseBallCount(Player striker, MatchStatus status) {
+    private void increaseBallCount(Player striker, ScoreBoard scoreBoard) {
         striker.setTotalBallsPlayed(striker.getTotalBallsPlayed() + 1);
-        status.setCurrentBallsPlayed(status.getCurrentBallsPlayed() + 1);
+        scoreBoard.setCurrentBallsPlayed(scoreBoard.getCurrentBallsPlayed() + 1);
     }
 
-    private MatchStatus processNextMove(MatchStatus status, List<Player> players, Rule[] rules) {
+    private void applyRules(ScoreBoard scoreBoard, List<Player> players, Rule[] rules) {
         for (Rule rule : rules) {
-            status = rule.processStatus(status, players);
+            rule.processScoreBoard(scoreBoard, players);
         }
-        return status;
     }
 
-    private void displayMatchSummary(MatchStatus status, List<Player> players, Commentary commentary) {
-        result(status, commentary);
-        commentary.playersScores(players, status);
+    private void displayMatchSummary(ScoreBoard scoreBoard, List<Player> players, Commentary commentary) {
+        result(scoreBoard, commentary);
+        commentary.playersScores(players, scoreBoard);
     }
 
-    private void result(MatchStatus status, Commentary commentary) {
-        if (status.getCurrentRunsToWin() <= 0)
-            commentary.wonCommentary(this.playingTeam, status);
+    private void result(ScoreBoard scoreBoard, Commentary commentary) {
+        if (scoreBoard.getCurrentRunsToWin() <= 0)
+            commentary.wonCommentary(this.playingTeam, scoreBoard);
         else
-            commentary.looseCommentary(this.playingTeam, status);
+            commentary.looseCommentary(this.playingTeam, scoreBoard);
     }
 }

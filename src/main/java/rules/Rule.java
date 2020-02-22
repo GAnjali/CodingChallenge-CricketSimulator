@@ -1,10 +1,10 @@
 package rules;
 
-import models.MatchStatus;
+import models.ScoreBoard;
 import models.Player;
 
 import java.util.List;
 
 public interface Rule {
-    MatchStatus processStatus(MatchStatus status, List<Player> players);
+    void processScoreBoard(ScoreBoard status, List<Player> players);
 }

@@ -1,6 +1,6 @@
 package models;
 
-public class MatchStatus {
+public class ScoreBoard {
     private Player currentStriker;
     private Player currentNonStriker;
     private int currentRunCount;
@@ -9,8 +9,8 @@ public class MatchStatus {
     private int currentRunsToWin;
     private boolean currentPlayerIsOut;
 
-    public MatchStatus(Player currentStriker, Player currentNonStriker, int currentRunCount, int currentWicketLeft,
-                       int currentBallsPlayed, int currentRunsToWin, boolean currentPlayerIsOut) {
+    public ScoreBoard(Player currentStriker, Player currentNonStriker, int currentRunCount, int currentWicketLeft,
+                      int currentBallsPlayed, int currentRunsToWin, boolean currentPlayerIsOut) {
         this.currentStriker = currentStriker;
         this.currentNonStriker = currentNonStriker;
         this.currentRunCount = currentRunCount;

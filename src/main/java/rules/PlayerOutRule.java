@@ -1,64 +1,63 @@
 package rules;
 
-import models.MatchStatus;
 import models.Player;
+import models.ScoreBoard;
 
 import java.util.List;
 
 public class PlayerOutRule implements Rule {
     @Override
-    public MatchStatus processStatus(MatchStatus status, List<Player> players) {
-        if (status.isCurrentPlayerIsOut())
-            applyPlayerOutRule(status, players);
-        return status;
+    public void processScoreBoard(ScoreBoard scoreBoard, List<Player> players) {
+        if (scoreBoard.isCurrentPlayerIsOut())
+            applyPlayerOutRule(scoreBoard, players);
     }
 
-    private void applyPlayerOutRule(MatchStatus status, List<Player> players) {
-        Player newPlayer = getNewPlayer(status, players);
-        if (isStrikerOut(status)) {
-            addNewStriker(status, newPlayer, players);
-        } else if (isNonStrikerOut(status)) {
-            addNewNonStriker(status, newPlayer, players);
+    private void applyPlayerOutRule(ScoreBoard scoreBoard, List<Player> players) {
+        Player newPlayer = getNewPlayer(scoreBoard, players);
+        if (isStrikerOut(scoreBoard)) {
+            addNewStriker(scoreBoard, newPlayer, players);
+        } else if (isNonStrikerOut(scoreBoard)) {
+            addNewNonStriker(scoreBoard, newPlayer, players);
         }
     }
 
-    private Player getNewPlayer(MatchStatus status, List<Player> players) {
+    private Player getNewPlayer(ScoreBoard scoreBoard, List<Player> players) {
         for (Player nextPlayer : players) {
-            if (!nextPlayer.isOut() && !isOnCrease(status, nextPlayer)) {
+            if (!nextPlayer.isOut() && !isOnCrease(scoreBoard, nextPlayer)) {
                 return nextPlayer;
             }
         }
         return null;
     }
 
-    private boolean isOnCrease(MatchStatus status, Player nextPlayer) {
-        Player striker = status.getCurrentStriker();
-        Player nonStriker = status.getCurrentNonStriker();
+    private boolean isOnCrease(ScoreBoard scoreBoard, Player nextPlayer) {
+        Player striker = scoreBoard.getCurrentStriker();
+        Player nonStriker = scoreBoard.getCurrentNonStriker();
         return nextPlayer.equals(striker) || nextPlayer.equals(nonStriker);
     }
 
-    private boolean isStrikerOut(MatchStatus status) {
-        return status.getCurrentStriker().isOut();
+    private boolean isStrikerOut(ScoreBoard scoreBoard) {
+        return scoreBoard.getCurrentStriker().isOut();
     }
 
-    private boolean isNonStrikerOut(MatchStatus status) {
-        return status.getCurrentNonStriker().isOut();
+    private boolean isNonStrikerOut(ScoreBoard scoreBoard) {
+        return scoreBoard.getCurrentNonStriker().isOut();
     }
 
-    private void addNewStriker(MatchStatus status, Player newPlayer, List<Player> players) {
+    private void addNewStriker(ScoreBoard scoreBoard, Player newPlayer, List<Player> players) {
         if (newPlayer == null)
-            updateStriker(status.getCurrentNonStriker(), status, players);
+            updateStriker(scoreBoard.getCurrentNonStriker(), scoreBoard, players);
         else
-            updateStriker(newPlayer, status, players);
+            updateStriker(newPlayer, scoreBoard, players);
     }
 
-    private void addNewNonStriker(MatchStatus status, Player newPlayer, List<Player> players) {
-        status.setCurrentNonStriker(newPlayer);
-        status.setCurrentPlayerIsOut(false);
+    private void addNewNonStriker(ScoreBoard scoreBoard, Player newPlayer, List<Player> players) {
+        scoreBoard.setCurrentNonStriker(newPlayer);
+        scoreBoard.setCurrentPlayerIsOut(false);
     }
 
-    private void updateStriker(Player newPlayer, MatchStatus status, List<Player> players) {
-        status.setCurrentStriker(newPlayer);
-        status.setCurrentPlayerIsOut(false);
+    private void updateStriker(Player newPlayer, ScoreBoard scoreBoard, List<Player> players) {
+        scoreBoard.setCurrentStriker(newPlayer);
+        scoreBoard.setCurrentPlayerIsOut(false);
     }
 }

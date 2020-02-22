@@ -1,14 +1,14 @@
 package commentary;
 
-import models.MatchStatus;
 import models.Player;
+import models.ScoreBoard;
 
 import java.util.List;
 
 public class Commentary {
-    public void generateOverCommentary(MatchStatus status) {
-        int oversLeft = 4 - (status.getCurrentBallsPlayed() / 6);
-        int runsNeededToWin = status.getCurrentRunsToWin();
+    public void generateOverCommentary(ScoreBoard scoreBoard) {
+        int oversLeft = 4 - (scoreBoard.getCurrentBallsPlayed() / 6);
+        int runsNeededToWin = scoreBoard.getCurrentRunsToWin();
         System.out.print("\n\n" + oversLeft + " over" + getSuffixString(oversLeft) + " left. " + runsNeededToWin + " runs to win\n");
     }
 
@@ -18,37 +18,37 @@ public class Commentary {
         return "s";
     }
 
-    public void generateBallCommentary(MatchStatus status) {
-        int overs = status.getCurrentBallsPlayed() / 6;
-        int ballsCountOfCurrentOver = status.getCurrentBallsPlayed() % 6;
-        if (ballsCountOfCurrentOver == 0 && status.getCurrentBallsPlayed() != 0) {
+    public void displayBallCommentary(ScoreBoard scoreBoard) {
+        int overs = scoreBoard.getCurrentBallsPlayed() / 6;
+        int ballsCountOfCurrentOver = scoreBoard.getCurrentBallsPlayed() % 6;
+        if (ballsCountOfCurrentOver == 0 && scoreBoard.getCurrentBallsPlayed() != 0) {
             ballsCountOfCurrentOver = 6;
             overs = overs - 1;
         }
-        System.out.print("\n" + overs + "." + ballsCountOfCurrentOver + " " + status.getCurrentStriker().getName() + " scores " + status.getCurrentRunCount() + " run" + getSuffixString(status.getCurrentRunCount()));
+        System.out.print("\n" + overs + "." + ballsCountOfCurrentOver + " " + scoreBoard.getCurrentStriker().getName() + " scores " + scoreBoard.getCurrentRunCount() + " run" + getSuffixString(scoreBoard.getCurrentRunCount()));
     }
 
-    public void wonCommentary(String playingTeam, MatchStatus status) {
-        System.out.print("\n\n" + playingTeam + " won by " + status.getCurrentWicketLeft() + " wicket" + getSuffixString(status.getCurrentWicketLeft()) + " and " + (40 - status.getCurrentBallsPlayed()) + " ball" + getSuffixString(status.getCurrentBallsPlayed()) + " remaining");
+    public void wonCommentary(String playingTeam, ScoreBoard scoreBoard) {
+        System.out.print("\n\n" + playingTeam + " won by " + scoreBoard.getCurrentWicketLeft() + " wicket" + getSuffixString(scoreBoard.getCurrentWicketLeft()) + " and " + (40 - scoreBoard.getCurrentBallsPlayed()) + " ball" + getSuffixString(scoreBoard.getCurrentBallsPlayed()) + " remaining");
     }
 
-    public void looseCommentary(String playingTeam, MatchStatus status) {
-        System.out.print("\n\n" + playingTeam + " Lost by " + status.getCurrentRunsToWin() + " run needed to win and " + (40 - status.getCurrentBallsPlayed()) + " ball" + getSuffixString(status.getCurrentBallsPlayed()) + " remaining");
+    public void looseCommentary(String playingTeam, ScoreBoard scoreBoard) {
+        System.out.print("\n\n" + playingTeam + " Lost by " + scoreBoard.getCurrentRunsToWin() + " run needed to win and " + (40 - scoreBoard.getCurrentBallsPlayed()) + " ball" + getSuffixString(scoreBoard.getCurrentBallsPlayed()) + " remaining");
     }
 
-    public void playersScores(List<Player> players, MatchStatus status) {
+    public void playersScores(List<Player> players, ScoreBoard scoreBoard) {
         for (Player player : players) {
-            System.out.print("\n" + player.getName() + " - " + player.getTotalRuns() + getPlayerOnCreaseSuffix(player, status) + " (" + player.getTotalBallsPlayed() + " balls)");
+            System.out.print("\n" + player.getName() + " - " + player.getTotalRuns() + getPlayerOnCreaseSuffix(player, scoreBoard) + " (" + player.getTotalBallsPlayed() + " balls)");
         }
     }
 
-    private String getPlayerOnCreaseSuffix(Player player, MatchStatus status) {
-        if (!isPlayerOnCrease(player, status))
+    private String getPlayerOnCreaseSuffix(Player player, ScoreBoard scoreBoard) {
+        if (!isPlayerOnCrease(player, scoreBoard))
             return "";
         return "*";
     }
 
-    private boolean isPlayerOnCrease(Player player, MatchStatus status) {
-        return (player.equals(status.getCurrentStriker()) || player.equals(status.getCurrentNonStriker()));
+    private boolean isPlayerOnCrease(Player player, ScoreBoard scoreBoard) {
+        return (player.equals(scoreBoard.getCurrentStriker()) || player.equals(scoreBoard.getCurrentNonStriker()));
     }
 }

@@ -1,22 +1,21 @@
 package rules;
 
-import models.MatchStatus;
 import models.Player;
+import models.ScoreBoard;
 
 import java.util.List;
 
 public class ChangeStrikeRule implements Rule {
 
     @Override
-    public MatchStatus processStatus(MatchStatus status, List<Player> players) {
-        if (needStrikeChange(status)) {
-            changeStrike(status);
+    public void processScoreBoard(ScoreBoard scoreBoard, List<Player> players) {
+        if (needStrikeChange(scoreBoard)) {
+            changeStrike(scoreBoard);
         }
-        return status;
     }
 
-    private boolean needStrikeChange(MatchStatus status) {
-        return (isOdd(status.getCurrentRunCount()) || isOverComplete(status.getCurrentBallsPlayed()));
+    private boolean needStrikeChange(ScoreBoard scoreBoard) {
+        return (isOdd(scoreBoard.getCurrentRunCount()) || isOverComplete(scoreBoard.getCurrentBallsPlayed()));
     }
 
     private boolean isOverComplete(int ballsPlayed) {
@@ -27,10 +26,10 @@ public class ChangeStrikeRule implements Rule {
         return run % 2 == 1;
     }
 
-    private void changeStrike(MatchStatus status) {
-        Player striker = status.getCurrentStriker();
-        Player nonStriker = status.getCurrentNonStriker();
-        status.setCurrentStriker(nonStriker);
-        status.setCurrentNonStriker(striker);
+    private void changeStrike(ScoreBoard scoreBoard) {
+        Player striker = scoreBoard.getCurrentStriker();
+        Player nonStriker = scoreBoard.getCurrentNonStriker();
+        scoreBoard.setCurrentStriker(nonStriker);
+        scoreBoard.setCurrentNonStriker(striker);
     }
 }
