@@ -40,7 +40,7 @@ public class CommentaryTest {
 
     @Test
     public void shouldCheckOverCommentaryForGivenStatus() {
-        commentary.overCommentary(status);
+        commentary.generateOverCommentary(status);
         expectedCommentary = "\n\n4 overs left. 40 runs to win\n";
         assertEquals(expectedCommentary, outContent.toString());
     }
@@ -48,7 +48,7 @@ public class CommentaryTest {
     @Test
     public void shouldCheckOverCommentaryForGivenStatusWith1overLeft() {
         status.setCurrentBallsPlayed(18);
-        commentary.overCommentary(status);
+        commentary.generateOverCommentary(status);
         expectedCommentary = "\n\n1 over left. 40 runs to win\n";
         assertEquals(expectedCommentary, outContent.toString());
     }
@@ -56,14 +56,14 @@ public class CommentaryTest {
     @Test
     public void shouldCheckBallCommentaryForGivenStatus() {
         status.setCurrentRunCount(2);
-        commentary.ballCommentary(status);
+        commentary.generateBallCommentary(status);
         expectedCommentary = "\n0.0 Kirat Boli scores 2 runs";
         assertEquals(expectedCommentary, outContent.toString());
     }
 
     @Test
     public void shouldCheckBallCommentaryForGivenStatusWith1run() {
-        commentary.ballCommentary(status);
+        commentary.generateBallCommentary(status);
         expectedCommentary = "\n0.0 Kirat Boli scores 0 run";
         assertEquals(expectedCommentary, outContent.toString());
     }
@@ -71,7 +71,7 @@ public class CommentaryTest {
     @Test
     public void shouldCheckBallCommentaryForGivenStatusBallsXount() {
         status.setCurrentBallsPlayed(6);
-        commentary.ballCommentary(status);
+        commentary.generateBallCommentary(status);
         expectedCommentary = "\n0.6 Kirat Boli scores 0 run";
         assertEquals(expectedCommentary, outContent.toString());
     }

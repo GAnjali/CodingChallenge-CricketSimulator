@@ -28,7 +28,7 @@ public class Match {
             displayOverCommentary(status, commentary);
             int scoredRuns = gameStrategy.getScoredRuns(status.getCurrentStriker());
             updateStatus(scoredRuns, status.getCurrentStriker(), status);
-            commentary.ballCommentary(status);
+            commentary.generateBallCommentary(status);
             status = processNextMove(status, players, rules);
             if (status.getCurrentWicketLeft() == 0 || totalScore > status.getCurrentRunsToWin())
                 break;
@@ -50,7 +50,7 @@ public class Match {
 
     private void displayOverCommentary(MatchStatus status, Commentary commentary) {
         if (isOverStarts(status))
-            commentary.overCommentary(status);//commentary
+            commentary.generateOverCommentary(status);//commentary
     }
 
     private boolean isOverStarts(MatchStatus status) {
