@@ -1,5 +1,7 @@
 package commentary;
 
+import models.Game;
+import models.Match;
 import models.MatchStatus;
 import models.Player;
 import org.junit.Before;
@@ -15,6 +17,8 @@ import static org.junit.Assert.assertEquals;
 
 public class CommentaryTest {
 
+    Game game;
+    Match match;
     MatchStatus status;
     List<Player> players;
     Commentary commentary;
@@ -23,6 +27,8 @@ public class CommentaryTest {
 
     @Before
     public void init() {
+        game = new Game();
+        match = game.intializeMatch();
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         commentary = new Commentary();
@@ -74,7 +80,7 @@ public class CommentaryTest {
     public void shouldCheckMatchWonSummaryCommentary() {
         status.setCurrentRunCount(40);
         status.setCurrentBallsPlayed(20);
-        commentary.matchWonSummary(status);
+        commentary.wonCommentary("Bengaluru", status);
         expectedCommentary = "\n\nBengaluru won by 4 wickets and 20 balls remaining";
         assertEquals(expectedCommentary, outContent.toString());
     }
@@ -84,7 +90,7 @@ public class CommentaryTest {
         status.setCurrentRunsToWin(20);
         status.setCurrentWicketLeft(0);
         status.setCurrentBallsPlayed(20);
-        commentary.matctLostSummary(status);
+        commentary.looseCommentary("Bengaluru", status);
         expectedCommentary = "\n\nBengaluru Lost by 20 run needed to win and 20 balls remaining";
         assertEquals(expectedCommentary, outContent.toString());
     }

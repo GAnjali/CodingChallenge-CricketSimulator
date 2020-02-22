@@ -28,12 +28,12 @@ public class Commentary {
         System.out.print("\n" + overs + "." + ballsCountOfCurrentOver + " " + status.getCurrentStriker().getName() + " scores " + status.getCurrentRunCount() + " run" + getSuffix(status.getCurrentRunCount()));
     }
 
-    public void matchWonSummary(MatchStatus status) {
-        System.out.print("\n\nBengaluru won by " + status.getCurrentWicketLeft() + " wicket" + getSuffix(status.getCurrentWicketLeft()) + " and " + (40 - status.getCurrentBallsPlayed()) + " ball" + getSuffix(status.getCurrentBallsPlayed()) + " remaining");
+    public void wonCommentary(String playingTeam, MatchStatus status) {
+        System.out.print("\n\n" + playingTeam + " won by " + status.getCurrentWicketLeft() + " wicket" + getSuffix(status.getCurrentWicketLeft()) + " and " + (40 - status.getCurrentBallsPlayed()) + " ball" + getSuffix(status.getCurrentBallsPlayed()) + " remaining");
     }
 
-    public void matctLostSummary(MatchStatus status) {
-        System.out.print("\n\nBengaluru Lost by " + status.getCurrentRunsToWin() + " run needed to win and " + (40 - status.getCurrentBallsPlayed()) + " ball" + getSuffix(status.getCurrentBallsPlayed()) + " remaining");
+    public void looseCommentary(String playingTeam, MatchStatus status) {
+        System.out.print("\n\n" + playingTeam + " Lost by " + status.getCurrentRunsToWin() + " run needed to win and " + (40 - status.getCurrentBallsPlayed()) + " ball" + getSuffix(status.getCurrentBallsPlayed()) + " remaining");
     }
 
     public void playersScores(List<Player> players, MatchStatus status) {
