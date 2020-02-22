@@ -17,7 +17,6 @@ import java.util.List;
 import static org.junit.Assert.assertTrue;
 
 public class MatchTest {
-
     List<Player> players;
     ScoreBoard scoreBoard;
     Match match;

@@ -6,7 +6,6 @@ import models.ScoreBoard;
 import java.util.List;
 
 public class ChangeStrikeRule implements Rule {
-
     @Override
     public void processScoreBoard(ScoreBoard scoreBoard, List<Player> players) {
         if (needStrikeChange(scoreBoard)) {

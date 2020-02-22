@@ -1,6 +1,5 @@
-package directory;
+package helper;
 
-import helper.MatchHelper;
 import models.Match;
 import models.Player;
 import org.junit.Before;
@@ -13,7 +12,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class MatchHelperTest {
-
     MatchHelper matchHelper;
     Match match;
     List<Player> players;

@@ -12,7 +12,6 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 public class RandomWeightedGameStrategyTest {
-
     RandomWeightedGameStrategy randomWeightedGameStrategy;
     Player strikePlayer;
     List<Player> players;
