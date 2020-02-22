@@ -50,7 +50,7 @@ public class Match {
 
     private void displayOverCommentary(ScoreBoard scoreBoard, Commentary commentary) {
         if (isOverStarts(scoreBoard))
-            commentary.generateOverCommentary(scoreBoard);//commentary
+            commentary.displayOverCommentary(scoreBoard);//commentary
     }
 
     private boolean isOverStarts(ScoreBoard scoreBoard) {
@@ -92,13 +92,13 @@ public class Match {
 
     private void displayMatchSummary(ScoreBoard scoreBoard, List<Player> players, Commentary commentary) {
         result(scoreBoard, commentary);
-        commentary.playersScores(players, scoreBoard);
+        commentary.displayPlayersScores(players, scoreBoard);
     }
 
     private void result(ScoreBoard scoreBoard, Commentary commentary) {
         if (scoreBoard.getCurrentRunsToWin() <= 0)
-            commentary.wonCommentary(this.playingTeam, scoreBoard);
+            commentary.displayWonCommentary(this.playingTeam, scoreBoard);
         else
-            commentary.looseCommentary(this.playingTeam, scoreBoard);
+            commentary.displayLooseCommentary(this.playingTeam, scoreBoard);
     }
 }

@@ -6,7 +6,7 @@ import models.ScoreBoard;
 import java.util.List;
 
 public class Commentary {
-    public void generateOverCommentary(ScoreBoard scoreBoard) {
+    public void displayOverCommentary(ScoreBoard scoreBoard) {
         int oversLeft = 4 - (scoreBoard.getCurrentBallsPlayed() / 6);
         int runsNeededToWin = scoreBoard.getCurrentRunsToWin();
         System.out.print("\n\n" + oversLeft + " over" + getSuffixString(oversLeft) + " left. " + runsNeededToWin + " runs to win\n");
@@ -28,15 +28,15 @@ public class Commentary {
         System.out.print("\n" + overs + "." + ballsCountOfCurrentOver + " " + scoreBoard.getCurrentStriker().getName() + " scores " + scoreBoard.getCurrentRunCount() + " run" + getSuffixString(scoreBoard.getCurrentRunCount()));
     }
 
-    public void wonCommentary(String playingTeam, ScoreBoard scoreBoard) {
+    public void displayWonCommentary(String playingTeam, ScoreBoard scoreBoard) {
         System.out.print("\n\n" + playingTeam + " won by " + scoreBoard.getCurrentWicketLeft() + " wicket" + getSuffixString(scoreBoard.getCurrentWicketLeft()) + " and " + (40 - scoreBoard.getCurrentBallsPlayed()) + " ball" + getSuffixString(scoreBoard.getCurrentBallsPlayed()) + " remaining");
     }
 
-    public void looseCommentary(String playingTeam, ScoreBoard scoreBoard) {
+    public void displayLooseCommentary(String playingTeam, ScoreBoard scoreBoard) {
         System.out.print("\n\n" + playingTeam + " Lost by " + scoreBoard.getCurrentRunsToWin() + " run needed to win and " + (40 - scoreBoard.getCurrentBallsPlayed()) + " ball" + getSuffixString(scoreBoard.getCurrentBallsPlayed()) + " remaining");
     }
 
-    public void playersScores(List<Player> players, ScoreBoard scoreBoard) {
+    public void displayPlayersScores(List<Player> players, ScoreBoard scoreBoard) {
         for (Player player : players) {
             System.out.print("\n" + player.getName() + " - " + player.getTotalRuns() + getPlayerOnCreaseSuffix(player, scoreBoard) + " (" + player.getTotalBallsPlayed() + " balls)");
         }

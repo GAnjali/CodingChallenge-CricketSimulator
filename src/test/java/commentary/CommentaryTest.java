@@ -39,22 +39,22 @@ public class CommentaryTest {
     }
 
     @Test
-    public void shouldCheckOverCommentaryForGivenScoreBoard() {
-        commentary.generateOverCommentary(scoreBoard);
+    public void shouldCheckDisplayOverCommentaryForGivenScoreBoard() {
+        commentary.displayOverCommentary(scoreBoard);
         expectedCommentary = "\n\n4 overs left. 40 runs to win\n";
         assertEquals(expectedCommentary, outContent.toString());
     }
 
     @Test
-    public void shouldCheckOverCommentaryForGivenScoreBoardWith1overLeft() {
+    public void shouldCheckDisplayOverCommentaryForGivenScoreBoardWith1overLeft() {
         scoreBoard.setCurrentBallsPlayed(18);
-        commentary.generateOverCommentary(scoreBoard);
+        commentary.displayOverCommentary(scoreBoard);
         expectedCommentary = "\n\n1 over left. 40 runs to win\n";
         assertEquals(expectedCommentary, outContent.toString());
     }
 
     @Test
-    public void shouldCheckBallCommentaryForGivenScoreBoard() {
+    public void shouldCheckDisplayBallCommentaryForGivenScoreBoard() {
         scoreBoard.setCurrentRunCount(2);
         commentary.displayBallCommentary(scoreBoard);
         expectedCommentary = "\n0.0 Kirat Boli scores 2 runs";
@@ -62,14 +62,14 @@ public class CommentaryTest {
     }
 
     @Test
-    public void shouldCheckBallCommentaryForGivenScoreBoardWith1run() {
+    public void shouldCheckDisplayBallCommentaryForGivenScoreBoardWith1run() {
         commentary.displayBallCommentary(scoreBoard);
         expectedCommentary = "\n0.0 Kirat Boli scores 0 run";
         assertEquals(expectedCommentary, outContent.toString());
     }
 
     @Test
-    public void shouldCheckBallCommentaryForGivenScoreBoardBallsXount() {
+    public void shouldCheckDisplayBallCommentaryForGivenScoreBoardBallsXount() {
         scoreBoard.setCurrentBallsPlayed(6);
         commentary.displayBallCommentary(scoreBoard);
         expectedCommentary = "\n0.6 Kirat Boli scores 0 run";
@@ -77,43 +77,43 @@ public class CommentaryTest {
     }
 
     @Test
-    public void shouldCheckMatchWonSummaryCommentary() {
+    public void shouldCheckDisplayWonSummaryCommentary() {
         scoreBoard.setCurrentRunCount(40);
         scoreBoard.setCurrentBallsPlayed(20);
-        commentary.wonCommentary("Bengaluru", scoreBoard);
+        commentary.displayWonCommentary("Bengaluru", scoreBoard);
         expectedCommentary = "\n\nBengaluru won by 4 wickets and 20 balls remaining";
         assertEquals(expectedCommentary, outContent.toString());
     }
 
     @Test
-    public void shouldCheckMatchLostSummaryCommentary() {
+    public void shouldCheckDisplayLostSummaryCommentary() {
         scoreBoard.setCurrentRunsToWin(20);
         scoreBoard.setCurrentWicketLeft(0);
         scoreBoard.setCurrentBallsPlayed(20);
-        commentary.looseCommentary("Bengaluru", scoreBoard);
+        commentary.displayLooseCommentary("Bengaluru", scoreBoard);
         expectedCommentary = "\n\nBengaluru Lost by 20 run needed to win and 20 balls remaining";
         assertEquals(expectedCommentary, outContent.toString());
     }
 
     @Test
-    public void shouldCheckPlayerScoresCommentary() {
+    public void shouldCheckDisplayPlayerScoresCommentary() {
         players.get(0).setTotalBallsPlayed(5);
         players.get(0).setTotalRuns(10);
         players.get(1).setTotalBallsPlayed(15);
         players.get(1).setTotalRuns(10);
-        commentary.playersScores(players, scoreBoard);
+        commentary.displayPlayersScores(players, scoreBoard);
         expectedCommentary = "\nKirat Boli - 10* (5 balls)\nNS Nodhi - 10* (15 balls)";
         assertEquals(expectedCommentary, outContent.toString());
     }
 
     @Test
-    public void shouldCheckPlayerScoresCommentaryWithPlayerNotOnCrease() {
+    public void shouldCheckDisplayPlayerScoresCommentaryWithPlayerNotOnCrease() {
         players.get(0).setTotalBallsPlayed(5);
         players.get(0).setTotalRuns(10);
         players.get(1).setTotalBallsPlayed(15);
         players.get(1).setTotalRuns(10);
         scoreBoard.setCurrentNonStriker(null);
-        commentary.playersScores(players, scoreBoard);
+        commentary.displayPlayersScores(players, scoreBoard);
         expectedCommentary = "\nKirat Boli - 10* (5 balls)\nNS Nodhi - 10 (15 balls)";
         assertEquals(expectedCommentary, outContent.toString());
     }
