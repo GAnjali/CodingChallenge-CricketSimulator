@@ -6,6 +6,9 @@ import rules.Rule;
 
 import java.util.List;
 
+import static helper.CrickerSimulatorConstants.INVALID_RUN;
+import static helper.CrickerSimulatorConstants.NO_OF_BALLS_PER_OVER;
+
 public class Match {
     private final String playingTeam;
     private final String opposingTeam;
@@ -24,14 +27,12 @@ public class Match {
     public void simulate(List<Player> players, RandomWeightedGameStrategy gameStrategy, Rule[] rules, Commentary commentary) {
         int totalScore = 0;
         ScoreBoard scoreBoard = getInitialScoreBoardOfMatch(players);
-        while (!isMatchCompleted(scoreBoard)) {
+        while (!isMatchCompleted(totalScore, scoreBoard)) {
             displayOverCommentary(scoreBoard, commentary);
             int scoredRuns = gameStrategy.getScoredRuns(scoreBoard.getCurrentStriker());
             updateScoreBoard(scoredRuns, scoreBoard);
             commentary.displayBallCommentary(scoreBoard);
             applyRules(scoreBoard, players, rules);
-            if (scoreBoard.getCurrentWicketLeft() == 0 || totalScore > scoreBoard.getCurrentRunsToWin())
-                break;
         }
         displayMatchSummary(scoreBoard, players, commentary);
     }
@@ -40,17 +41,17 @@ public class Match {
         return new ScoreBoard(players.get(0), players.get(1), 0, this.wickets, 0, this.runNeededToWin, false);
     }
 
-    private boolean isMatchCompleted(ScoreBoard scoreBoard) {
-        return scoreBoard.getCurrentBallsPlayed() >= getTotalBalls();
+    private boolean isMatchCompleted(int totalScore, ScoreBoard scoreBoard) {
+        return scoreBoard.getCurrentBallsPlayed() >= getTotalBalls() || scoreBoard.getCurrentWicketLeft() == 0 || totalScore > scoreBoard.getCurrentRunsToWin();
     }
 
     private int getTotalBalls() {
-        return this.overs * 6;
+        return this.overs * NO_OF_BALLS_PER_OVER;
     }
 
     private void displayOverCommentary(ScoreBoard scoreBoard, Commentary commentary) {
         if (isOverStarts(scoreBoard))
-            commentary.displayOverCommentary(scoreBoard);//commentary
+            commentary.displayOverCommentary(scoreBoard);
     }
 
     private boolean isOverStarts(ScoreBoard scoreBoard) {
@@ -58,22 +59,21 @@ public class Match {
     }
 
     private void updateScoreBoard(int runsScored, ScoreBoard scoreBoard) {
-        if (runsScored == 7) {
-            updatescoreBoardWhenStrickerGetsOut(scoreBoard.getCurrentStriker(), scoreBoard);
+        if (runsScored == INVALID_RUN) {
+            updateScoreBoardWhenStrikerGetsOut(scoreBoard.getCurrentStriker(), scoreBoard);
         } else {
-            updatescoreBoardWhenStrikerScoredRuns(runsScored, scoreBoard.getCurrentStriker(), scoreBoard);
+            updateScoreBoardWhenStrikerScoredRuns(runsScored, scoreBoard.getCurrentStriker(), scoreBoard);
         }
         increaseBallCount(scoreBoard.getCurrentStriker(), scoreBoard);
     }
 
-    private void updatescoreBoardWhenStrickerGetsOut(Player striker, ScoreBoard scoreBoard) {
+    private void updateScoreBoardWhenStrikerGetsOut(Player striker, ScoreBoard scoreBoard) {
         striker.setOut(true);
         scoreBoard.setCurrentPlayerIsOut(true);
         scoreBoard.setCurrentWicketLeft(scoreBoard.getCurrentWicketLeft() - 1);
     }
 
-
-    private void updatescoreBoardWhenStrikerScoredRuns(int runsScored, Player striker, ScoreBoard scoreBoard) {
+    private void updateScoreBoardWhenStrikerScoredRuns(int runsScored, Player striker, ScoreBoard scoreBoard) {
         striker.setTotalRuns(striker.getTotalRuns() + runsScored);
         scoreBoard.setCurrentRunCount(runsScored);
         scoreBoard.setCurrentRunsToWin(scoreBoard.getCurrentRunsToWin() - runsScored);
