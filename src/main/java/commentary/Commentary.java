@@ -6,7 +6,6 @@ import models.Player;
 import java.util.List;
 
 public class Commentary {
-
     public void overCommentary(MatchStatus status) {
         int oversLeft = 4 - (status.getCurrentBallsPlayed() / 6);
         int runsNeededToWin = status.getCurrentRunsToWin();
@@ -14,19 +13,19 @@ public class Commentary {
     }
 
     private String getSuffix(int number) {
-        if (number > 1)
-            return "s";
-        return "";
+        if (number <= 1)
+            return "";
+        return "s";
     }
 
     public void ballCommentary(MatchStatus status) {
         int overs = status.getCurrentBallsPlayed() / 6;
-        int balls = status.getCurrentBallsPlayed() % 6;
-        if (balls == 0 && status.getCurrentBallsPlayed() != 0) {
-            balls = 6;
+        int ballsCountOfCurrentOver = status.getCurrentBallsPlayed() % 6;
+        if (ballsCountOfCurrentOver == 0 && status.getCurrentBallsPlayed() != 0) {
+            ballsCountOfCurrentOver = 6;
             overs = overs - 1;
         }
-        System.out.print("\n" + overs + "." + balls + " " + status.getCurrentStriker().getName() + " scores " + status.getCurrentRunCount() + " run" + getSuffix(status.getCurrentRunCount()));
+        System.out.print("\n" + overs + "." + ballsCountOfCurrentOver + " " + status.getCurrentStriker().getName() + " scores " + status.getCurrentRunCount() + " run" + getSuffix(status.getCurrentRunCount()));
     }
 
     public void matchWonSummary(MatchStatus status) {

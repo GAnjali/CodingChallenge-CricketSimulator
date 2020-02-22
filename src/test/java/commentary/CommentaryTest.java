@@ -63,6 +63,14 @@ public class CommentaryTest {
     }
 
     @Test
+    public void shouldCheckBallCommentaryForGivenStatusBallsXount() {
+        status.setCurrentBallsPlayed(6);
+        commentary.ballCommentary(status);
+        expectedCommentary = "\n0.6 Kirat Boli scores 0 run";
+        assertEquals(expectedCommentary, outContent.toString());
+    }
+
+    @Test
     public void shouldCheckMatchWonSummaryCommentary() {
         status.setCurrentRunCount(40);
         status.setCurrentBallsPlayed(20);
