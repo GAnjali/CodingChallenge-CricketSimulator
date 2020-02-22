@@ -9,8 +9,8 @@ Cricket simulator is a program used to simulate the cricket match with provided 
     
 **Steps to run:**<br/>
 - Package the jar using maven<br/>
-<pre><code>``mvn clean package``</code></pre>
+<pre><code> mvn clean package</code></pre>
 - Run the program<br/>
-<pre> <code> ``java -cp target\CricketSimulator-1.0-SNAPSHOT.jar CricketSimulator``</code></pre>
+<pre> <code> java -cp target\CricketSimulator-1.0-SNAPSHOT.jar CricketSimulator</code></pre>
 - Run all tests<br/>
-<pre> <code> ``mvn clean test``</code></pre>
+<pre> <code> mvn clean test</code></pre>
