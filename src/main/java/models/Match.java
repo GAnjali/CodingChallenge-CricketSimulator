@@ -1,5 +1,6 @@
 package models;
 
+import commentary.Commentary;
 import exceptions.PlayerNotFoundException;
 import gamestrategy.RandomWeightedGameStrategy;
 import rules.Rule;
@@ -21,41 +22,41 @@ public class Match {
         this.overs = overs;
     }
 
-    public String getPlayingTeam() {
-        return playingTeam;
-    }
-
-    public String getOpposingTeam() {
-        return opposingTeam;
-    }
-
-    public int getWickets() {
-        return wickets;
-    }
-
-    public int getRunNeededToWin() {
-        return runNeededToWin;
-    }
-
-    public int getOvers() {
-        return overs;
-    }
-
-    public void simulate(List<Player> players, RandomWeightedGameStrategy gameStrategy, Rule[] rules) throws PlayerNotFoundException {
+    public void simulate(List<Player> players, RandomWeightedGameStrategy gameStrategy, Rule[] rules, Commentary commentary) throws PlayerNotFoundException {
         int totalScore = 0;
         MatchStatus status = getInitialStatusOfMatch(players);
         while (!isMatchCompleted(status)) {
+            if (isOverStarts(status))
+                commentary.overCommentary(status);
             Player striker = status.getCurrentStriker();
             int scoredRuns = gameStrategy.getScoredRuns(striker);
             updateStatus(scoredRuns, striker, status);
+            commentary.ballCommentary(status);
             status = processNextMove(status, players, rules);
             if (status.getCurrentWicketLeft() == 0 || totalScore > status.getCurrentRunsToWin())
                 break;
         }
+        displayMatchSummary(status, players, commentary);
+    }
+
+    private boolean isOverStarts(MatchStatus status) {
+        return status.getCurrentBallsPlayed() % 6 == 0;
+    }
+
+    private void displayMatchSummary(MatchStatus status, List<Player> players, Commentary commentary) {
+        result(status, commentary);
+        commentary.playersScores(players, status);
+    }
+
+    private void result(MatchStatus status, Commentary commentary) {
+        if (status.getCurrentRunsToWin() <= 0)
+            commentary.wonCommentary(this.playingTeam, status);
+        else
+            commentary.looseCommentary(this.playingTeam, status);
     }
 
     private MatchStatus getInitialStatusOfMatch(List<Player> players) {
-        return new MatchStatus(players.get(0), players.get(1), 0, 4, 0, 40, false, 0);
+        return new MatchStatus(players.get(0), players.get(1), 0, this.wickets, 0, this.runNeededToWin, false, 0);
     }
 
     private boolean isMatchCompleted(MatchStatus status) {
@@ -80,7 +81,7 @@ public class Match {
 
     private void updateStatusWhenStrikerScoredRuns(int runsScored, Player striker, MatchStatus status) {
         striker.setTotalRuns(striker.getTotalRuns() + runsScored);
-        status.setCurrentRunCount(status.getCurrentRunCount() + runsScored);
+        status.setCurrentRunCount(runsScored);
         status.setCurrentRunsToWin(status.getCurrentRunsToWin() - runsScored);
     }
 

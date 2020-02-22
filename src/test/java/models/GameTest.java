@@ -21,15 +21,6 @@ public class GameTest {
     }
 
     @Test
-    public void testShouldVerifyMatchObjectWhenInitializeMatch() {
-        assertEquals("Bengaluru", match.getPlayingTeam());
-        assertEquals("Chennai", match.getOpposingTeam());
-        assertEquals(4, match.getWickets());
-        assertEquals(40, match.getRunNeededToWin());
-        assertEquals(4, match.getOvers());
-    }
-
-    @Test
     public void testShouldVerifyPlayersWhenInitializePlayersCalled() {
         assertEquals("Kirat Boli", players.get(0).getName());
         assertEquals("NS Nodhi", players.get(1).getName());

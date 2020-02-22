@@ -1,5 +1,6 @@
 package models;
 
+import commentary.Commentary;
 import exceptions.PlayerNotFoundException;
 import gamestrategy.RandomWeightedGameStrategy;
 import org.junit.Before;
@@ -8,6 +9,8 @@ import rules.ChangeStrikeRule;
 import rules.PlayerOutRule;
 import rules.Rule;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,10 +24,13 @@ public class MatchTest {
     Match match;
     RandomWeightedGameStrategy runStrategy;
     Rule[] rules;
+    Commentary commentary;
+    ByteArrayOutputStream outContent;
 
     @Before
     public void init() {
         players = new ArrayList<>();
+        commentary = new Commentary();
         match = new Match("Bengaluru", "Chennai", 4, 40, 4);
         runStrategy = new RandomWeightedGameStrategy();
         rules = new Rule[2];
@@ -33,15 +39,28 @@ public class MatchTest {
     }
 
     @Test
-    public void testWithHighProbablityOfEachPlayerGettingOut() throws PlayerNotFoundException {
+    public void testShouldExpectAllPlayersGettingOutWithHighProbablityOfEachPlayerGettingOut() throws PlayerNotFoundException {
         players.add(new Player("Kirat Boli", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
         players.add(new Player("NS Nodhi", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
         players.add(new Player("R Rumrah", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
         players.add(new Player("Shashi Henra", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
         status = new MatchStatus(players.get(0), players.get(1), 0, 4, 0, 40, false, 0);
-        match.simulate(players, runStrategy, rules);
+        match.simulate(players, runStrategy, rules, commentary);
         for (Player player : players) {
             assertTrue(player.isOut());
         }
+    }
+
+    @Test
+    public void testShouldExpectToWinTheMatchWithHighProbablityOfEachPlayerGettingSix() throws PlayerNotFoundException {
+        players.add(new Player("Kirat Boli", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0, 2.0), 0, 0, false));
+        players.add(new Player("NS Nodhi", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0, 1.0), 0, 0, false));
+        players.add(new Player("R Rumrah", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0, 1.0), 0, 0, false));
+        players.add(new Player("Shashi Henra", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0, 1.0), 0, 0, false));
+        status = new MatchStatus(players.get(0), players.get(1), 0, 4, 0, 40, false, 0);
+        outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        match.simulate(players, runStrategy, rules, commentary);
+        assertTrue(outContent.toString().contains("Bengaluru won"));
     }
 }
