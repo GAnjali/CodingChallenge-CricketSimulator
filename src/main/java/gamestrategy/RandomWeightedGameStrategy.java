@@ -19,7 +19,7 @@ public class RandomWeightedGameStrategy implements GameStrategy {
         return probability.stream().mapToDouble(Double::doubleValue).sum();
     }
 
-    public int generateRandomRuns(List<Double> playerProbability, double randomNumber) {
+    private int generateRandomRuns(List<Double> playerProbability, double randomNumber) {
         double weight = 0;
         for (int run = 0; run < playerProbability.size(); run++) {
             weight += playerProbability.get(run);
