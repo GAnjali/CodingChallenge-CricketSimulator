@@ -1,7 +1,6 @@
 package models;
 
 import commentary.Commentary;
-import exceptions.PlayerNotFoundException;
 import gamestrategy.RandomWeightedGameStrategy;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +38,7 @@ public class MatchTest {
     }
 
     @Test
-    public void testShouldExpectAllPlayersGettingOutWithHighProbablityOfEachPlayerGettingOut() throws PlayerNotFoundException {
+    public void testShouldExpectAllPlayersGettingOutWithHighProbablityOfEachPlayerGettingOut() {
         players.add(new Player("Kirat Boli", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
         players.add(new Player("NS Nodhi", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
         players.add(new Player("R Rumrah", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
@@ -52,7 +51,7 @@ public class MatchTest {
     }
 
     @Test
-    public void testShouldExpectToWinTheMatchWithHighProbablityOfEachPlayerGettingSix() throws PlayerNotFoundException {
+    public void testShouldExpectToWinTheMatchWithHighProbablityOfEachPlayerGettingSix() {
         players.add(new Player("Kirat Boli", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0, 2.0), 0, 0, false));
         players.add(new Player("NS Nodhi", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0, 1.0), 0, 0, false));
         players.add(new Player("R Rumrah", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0, 1.0), 0, 0, false));

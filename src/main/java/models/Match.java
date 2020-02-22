@@ -1,7 +1,6 @@
 package models;
 
 import commentary.Commentary;
-import exceptions.PlayerNotFoundException;
 import gamestrategy.RandomWeightedGameStrategy;
 import rules.Rule;
 
@@ -22,7 +21,7 @@ public class Match {
         this.overs = overs;
     }
 
-    public void simulate(List<Player> players, RandomWeightedGameStrategy gameStrategy, Rule[] rules, Commentary commentary) throws PlayerNotFoundException {
+    public void simulate(List<Player> players, RandomWeightedGameStrategy gameStrategy, Rule[] rules, Commentary commentary) {
         int totalScore = 0;
         MatchStatus status = getInitialStatusOfMatch(players);
         while (!isMatchCompleted(status)) {
@@ -90,7 +89,7 @@ public class Match {
         status.setCurrentBallsPlayed(status.getCurrentBallsPlayed() + 1);
     }
 
-    private MatchStatus processNextMove(MatchStatus status, List<Player> players, Rule[] rules) throws PlayerNotFoundException {
+    private MatchStatus processNextMove(MatchStatus status, List<Player> players, Rule[] rules) {
         for (Rule rule : rules) {
             status = rule.processStatus(status, players);
         }

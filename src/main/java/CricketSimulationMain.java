@@ -1,5 +1,4 @@
 import commentary.Commentary;
-import exceptions.PlayerNotFoundException;
 import gamestrategy.RandomWeightedGameStrategy;
 import models.Game;
 import models.Match;
@@ -12,7 +11,7 @@ import java.util.List;
 
 public class CricketSimulationMain {
 
-    public static void main(String[] args) throws PlayerNotFoundException {
+    public static void main(String[] args) {
         Game game = new Game();
         List<Player> players = game.intializePlayers();
         RandomWeightedGameStrategy runStrategy = new RandomWeightedGameStrategy();

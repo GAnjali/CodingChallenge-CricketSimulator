@@ -1,6 +1,5 @@
 package rules;
 
-import exceptions.PlayerNotFoundException;
 import models.MatchStatus;
 import models.Player;
 import org.junit.Before;
@@ -31,7 +30,7 @@ public class PlayerOutRuleTest {
     }
 
     @Test
-    public void shouldGetNewStrikerWhenStrikerIsOut() throws PlayerNotFoundException {
+    public void shouldGetNewStrikerWhenStrikerIsOut() {
         status.setCurrentPlayerIsOut(true);
         status.getCurrentStriker().setOut(true);
         playerOutRule.processStatus(status, players);
@@ -39,7 +38,7 @@ public class PlayerOutRuleTest {
     }
 
     @Test
-    public void shouldGetNonStrikerAsStrikerWhenStrikerIsOutAndThereAreNoPlayerToPlay() throws PlayerNotFoundException {
+    public void shouldGetNonStrikerAsStrikerWhenStrikerIsOutAndThereAreNoPlayerToPlay() {
         Player currentNonStriker = status.getCurrentNonStriker();
         players.get(2).setOut(true);
         players.get(3).setOut(true);
@@ -50,7 +49,7 @@ public class PlayerOutRuleTest {
     }
 
     @Test
-    public void shouldGetNewNonStrikerWhenNonStrikerIsOut() throws PlayerNotFoundException {
+    public void shouldGetNewNonStrikerWhenNonStrikerIsOut() {
         status.setCurrentPlayerIsOut(true);
         status.getCurrentNonStriker().setOut(true);
         playerOutRule.processStatus(status, players);
@@ -58,7 +57,7 @@ public class PlayerOutRuleTest {
     }
 
     @Test
-    public void shouldGetEmptyNonStrikerWhenNonStrikerIsOutAndThereAreNoPlayerToPlay() throws PlayerNotFoundException {
+    public void shouldGetEmptyNonStrikerWhenNonStrikerIsOutAndThereAreNoPlayerToPlay() {
         players.get(2).setOut(true);
         players.get(3).setOut(true);
         status.setCurrentPlayerIsOut(true);

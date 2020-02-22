@@ -1,6 +1,5 @@
 package rules;
 
-import exceptions.PlayerNotFoundException;
 import models.MatchStatus;
 import models.Player;
 
@@ -8,13 +7,13 @@ import java.util.List;
 
 public class PlayerOutRule implements Rule {
     @Override
-    public MatchStatus processStatus(MatchStatus status, List<Player> players) throws PlayerNotFoundException {
+    public MatchStatus processStatus(MatchStatus status, List<Player> players) {
         if (status.isCurrentPlayerIsOut())
             applyPlayerOutRule(status, players);
         return status;
     }
 
-    private void applyPlayerOutRule(MatchStatus status, List<Player> players) throws PlayerNotFoundException {
+    private void applyPlayerOutRule(MatchStatus status, List<Player> players) {
         Player newPlayer = getNewPlayer(status, players);
         if (isStrikerOut(status)) {
             addNewStriker(status, newPlayer, players);
@@ -46,19 +45,19 @@ public class PlayerOutRule implements Rule {
         return status.getCurrentNonStriker().isOut();
     }
 
-    private void addNewStriker(MatchStatus status, Player newPlayer, List<Player> players) throws PlayerNotFoundException {
+    private void addNewStriker(MatchStatus status, Player newPlayer, List<Player> players) {
         if (newPlayer == null)
             updateStriker(status.getCurrentNonStriker(), status, players);
         else
             updateStriker(newPlayer, status, players);
     }
 
-    private void addNewNonStriker(MatchStatus status, Player newPlayer, List<Player> players) throws PlayerNotFoundException {
+    private void addNewNonStriker(MatchStatus status, Player newPlayer, List<Player> players) {
         status.setCurrentNonStriker(newPlayer);
         status.setCurrentPlayerIsOut(false);
     }
 
-    private void updateStriker(Player newPlayer, MatchStatus status, List<Player> players) throws PlayerNotFoundException {
+    private void updateStriker(Player newPlayer, MatchStatus status, List<Player> players) {
         status.setCurrentStriker(newPlayer);
         status.setCurrentPlayerIsOut(false);
     }
