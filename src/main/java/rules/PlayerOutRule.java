@@ -15,9 +15,9 @@ public class PlayerOutRule implements Rule {
     private void applyPlayerOutRule(ScoreBoard scoreBoard, List<Player> players) {
         Player newPlayer = getNewPlayer(scoreBoard, players);
         if (isStrikerOut(scoreBoard)) {
-            addNewStriker(scoreBoard, newPlayer, players);
+            addNewStriker(scoreBoard, newPlayer);
         } else if (isNonStrikerOut(scoreBoard)) {
-            addNewNonStriker(scoreBoard, newPlayer, players);
+            addNewNonStriker(scoreBoard, newPlayer);
         }
     }
 
@@ -44,19 +44,19 @@ public class PlayerOutRule implements Rule {
         return scoreBoard.getCurrentNonStriker().isOut();
     }
 
-    private void addNewStriker(ScoreBoard scoreBoard, Player newPlayer, List<Player> players) {
+    private void addNewStriker(ScoreBoard scoreBoard, Player newPlayer) {
         if (newPlayer == null)
-            updateStriker(scoreBoard.getCurrentNonStriker(), scoreBoard, players);
+            updateStriker(scoreBoard.getCurrentNonStriker(), scoreBoard);
         else
-            updateStriker(newPlayer, scoreBoard, players);
+            updateStriker(newPlayer, scoreBoard);
     }
 
-    private void addNewNonStriker(ScoreBoard scoreBoard, Player newPlayer, List<Player> players) {
+    private void addNewNonStriker(ScoreBoard scoreBoard, Player newPlayer) {
         scoreBoard.setCurrentNonStriker(newPlayer);
         scoreBoard.setCurrentPlayerIsOut(false);
     }
 
-    private void updateStriker(Player newPlayer, ScoreBoard scoreBoard, List<Player> players) {
+    private void updateStriker(Player newPlayer, ScoreBoard scoreBoard) {
         scoreBoard.setCurrentStriker(newPlayer);
         scoreBoard.setCurrentPlayerIsOut(false);
     }
