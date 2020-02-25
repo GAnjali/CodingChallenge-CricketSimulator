@@ -2,14 +2,17 @@ package commentary;
 
 import models.Player;
 import models.ScoreBoard;
+import view.OutputDriver;
 
 import java.util.List;
 
 public class Commentary {
+    OutputDriver outputDriver = new OutputDriver();
+
     public void generateOverMessage(ScoreBoard scoreBoard) {
         int oversLeft = 4 - (scoreBoard.getCurrentBallsPlayed() / 6);
         int runsNeededToWin = scoreBoard.getCurrentRunsToWin();
-        System.out.print("\n\n" + oversLeft + " over" + getSuffixString(oversLeft) + " left. " + runsNeededToWin + " runs to win\n");
+        outputDriver.print("\n" + oversLeft + " over" + getSuffixString(oversLeft) + " left. " + runsNeededToWin + " runs to win\n");
     }
 
     private String getSuffixString(int count) {
@@ -25,20 +28,20 @@ public class Commentary {
             ballsCountOfCurrentOver = 6;
             overs = overs - 1;
         }
-        System.out.print("\n" + overs + "." + ballsCountOfCurrentOver + " " + scoreBoard.getCurrentStriker().getName() + " scores " + scoreBoard.getCurrentRunCount() + " run" + getSuffixString(scoreBoard.getCurrentRunCount()));
+        outputDriver.print(overs + "." + ballsCountOfCurrentOver + " " + scoreBoard.getCurrentStriker().getName() + " scores " + scoreBoard.getCurrentRunCount() + " run" + getSuffixString(scoreBoard.getCurrentRunCount()));
     }
 
     public void generateWonMessage(String playingTeam, ScoreBoard scoreBoard) {
-        System.out.print("\n\n" + playingTeam + " won by " + scoreBoard.getCurrentWicketLeft() + " wicket" + getSuffixString(scoreBoard.getCurrentWicketLeft()) + " and " + (40 - scoreBoard.getCurrentBallsPlayed()) + " ball" + getSuffixString(scoreBoard.getCurrentBallsPlayed()) + " remaining");
+        outputDriver.print("\n" + playingTeam + " won by " + scoreBoard.getCurrentWicketLeft() + " wicket" + getSuffixString(scoreBoard.getCurrentWicketLeft()) + " and " + (40 - scoreBoard.getCurrentBallsPlayed()) + " ball" + getSuffixString(scoreBoard.getCurrentBallsPlayed()) + " remaining");
     }
 
     public void generateLostMessage(String playingTeam, ScoreBoard scoreBoard) {
-        System.out.print("\n\n" + playingTeam + " Lost by " + scoreBoard.getCurrentRunsToWin() + " run needed to win and " + (40 - scoreBoard.getCurrentBallsPlayed()) + " ball" + getSuffixString(scoreBoard.getCurrentBallsPlayed()) + " remaining");
+        outputDriver.print("\n" + playingTeam + " Lost by " + scoreBoard.getCurrentRunsToWin() + " run needed to win and " + (40 - scoreBoard.getCurrentBallsPlayed()) + " ball" + getSuffixString(scoreBoard.getCurrentBallsPlayed()) + " remaining");
     }
 
     public void generateScores(List<Player> players, ScoreBoard scoreBoard) {
         for (Player player : players) {
-            System.out.print("\n" + player.getName() + " - " + player.getTotalRuns() + getPlayerOnCreaseSuffix(player, scoreBoard) + " (" + player.getTotalBallsPlayed() + " balls)");
+            outputDriver.print(player.getName() + " - " + player.getTotalRuns() + getPlayerOnCreaseSuffix(player, scoreBoard) + " (" + player.getTotalBallsPlayed() + " balls)");
         }
     }
 
