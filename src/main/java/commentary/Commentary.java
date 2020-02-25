@@ -12,13 +12,7 @@ public class Commentary {
     public void generateOverMessage(ScoreBoard scoreBoard) {
         int oversLeft = 4 - (scoreBoard.getCurrentBallsPlayed() / 6);
         int runsNeededToWin = scoreBoard.getCurrentRunsToWin();
-        outputDriver.print("\n" + oversLeft + " over" + getSuffixString(oversLeft) + " left. " + runsNeededToWin + " runs to win\n");
-    }
-
-    private String getSuffixString(int count) {
-        if (count <= 1)
-            return "";
-        return "s";
+        outputDriver.printOverMessage(oversLeft, getSuffixString(oversLeft), runsNeededToWin);
     }
 
     public void generateBallByBallMessage(ScoreBoard scoreBoard) {
@@ -28,26 +22,28 @@ public class Commentary {
             ballsCountOfCurrentOver = 6;
             overs = overs - 1;
         }
-        outputDriver.print(overs + "." + ballsCountOfCurrentOver + " " + scoreBoard.getCurrentStriker().getName() + " scores " + scoreBoard.getCurrentRunCount() + " run" + getSuffixString(scoreBoard.getCurrentRunCount()));
+        outputDriver.printBallByBallMessage(overs, ballsCountOfCurrentOver, scoreBoard.getCurrentStriker().getName(), scoreBoard.getCurrentRunCount(), getSuffixString(scoreBoard.getCurrentRunCount()));
     }
 
     public void generateWonMessage(String playingTeam, ScoreBoard scoreBoard) {
-        outputDriver.print("\n" + playingTeam + " won by " + scoreBoard.getCurrentWicketLeft() + " wicket" + getSuffixString(scoreBoard.getCurrentWicketLeft()) + " and " + (40 - scoreBoard.getCurrentBallsPlayed()) + " ball" + getSuffixString(scoreBoard.getCurrentBallsPlayed()) + " remaining");
+        outputDriver.printWonMessage(playingTeam, scoreBoard.getCurrentWicketLeft(), getSuffixString(scoreBoard.getCurrentWicketLeft()), 40 - scoreBoard.getCurrentBallsPlayed(), getSuffixString(40 - scoreBoard.getCurrentBallsPlayed()));
     }
 
     public void generateLostMessage(String playingTeam, ScoreBoard scoreBoard) {
-        outputDriver.print("\n" + playingTeam + " Lost by " + scoreBoard.getCurrentRunsToWin() + " run needed to win and " + (40 - scoreBoard.getCurrentBallsPlayed()) + " ball" + getSuffixString(scoreBoard.getCurrentBallsPlayed()) + " remaining");
+        outputDriver.printLostMessage(playingTeam, scoreBoard.getCurrentRunsToWin(), getSuffixString(scoreBoard.getCurrentRunsToWin()), 40 - scoreBoard.getCurrentBallsPlayed(), getSuffixString(40 - scoreBoard.getCurrentBallsPlayed()));
     }
 
-    public void generateScores(List<Player> players, ScoreBoard scoreBoard) {
+    public void generatePlayerScores(List<Player> players, ScoreBoard scoreBoard) {
         for (Player player : players) {
-            outputDriver.print(player.getName() + " - " + player.getTotalRuns() + getPlayerOnCreaseSuffix(player, scoreBoard) + " (" + player.getTotalBallsPlayed() + " balls)");
+            outputDriver.printPlayerScore(player.getName(), player.getTotalRuns(), getPlayerOnCreaseSuffix(player, scoreBoard), player.getTotalBallsPlayed(), getSuffixString(player.getTotalBallsPlayed()));
         }
     }
 
     private String getPlayerOnCreaseSuffix(Player player, ScoreBoard scoreBoard) {
-        if (!scoreBoard.onCrease(player))
-            return "";
-        return "*";
+        return scoreBoard.onCrease(player) ? "*" : "";
+    }
+
+    private String getSuffixString(int count) {
+        return count <= 1 ? "" : "s";
     }
 }

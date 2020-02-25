@@ -92,7 +92,7 @@ public class Match {
 
     private void generateMatchSummary(ScoreBoard scoreBoard, List<Player> players, Commentary commentary) {
         generateResult(scoreBoard, commentary);
-        commentary.generateScores(players, scoreBoard);
+        commentary.generatePlayerScores(players, scoreBoard);
     }
 
     private void generateResult(ScoreBoard scoreBoard, Commentary commentary) {

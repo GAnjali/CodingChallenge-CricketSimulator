@@ -1,7 +1,7 @@
 package commentary;
 
-import models.Match;
 import helper.MatchHelper;
+import models.Match;
 import models.Player;
 import models.ScoreBoard;
 import org.junit.Before;
@@ -90,7 +90,7 @@ public class CommentaryTest {
         scoreBoard.setCurrentWicketLeft(0);
         scoreBoard.setCurrentBallsPlayed(20);
         commentary.generateLostMessage("Bengaluru", scoreBoard);
-        expectedCommentary = "\n\nBengaluru Lost by 20 run needed to win and 20 balls remaining";
+        expectedCommentary = "\n\nBengaluru Lost by 20 runs needed to win and 20 balls remaining";
         assertEquals(expectedCommentary, outContent.toString());
     }
 
@@ -100,7 +100,7 @@ public class CommentaryTest {
         players.get(0).setTotalRuns(10);
         players.get(1).setTotalBallsPlayed(15);
         players.get(1).setTotalRuns(10);
-        commentary.generateScores(players, scoreBoard);
+        commentary.generatePlayerScores(players, scoreBoard);
         expectedCommentary = "\nKirat Boli - 10* (5 balls)\nNS Nodhi - 10* (15 balls)";
         assertEquals(expectedCommentary, outContent.toString());
     }
@@ -112,7 +112,7 @@ public class CommentaryTest {
         players.get(1).setTotalBallsPlayed(15);
         players.get(1).setTotalRuns(10);
         scoreBoard.setCurrentNonStriker(null);
-        commentary.generateScores(players, scoreBoard);
+        commentary.generatePlayerScores(players, scoreBoard);
         expectedCommentary = "\nKirat Boli - 10* (5 balls)\nNS Nodhi - 10 (15 balls)";
         assertEquals(expectedCommentary, outContent.toString());
     }
