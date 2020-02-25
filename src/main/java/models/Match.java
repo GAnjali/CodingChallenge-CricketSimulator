@@ -1,7 +1,7 @@
 package models;
 
 import commentary.Commentary;
-import gamestrategy.RandomWeightedGameStrategy;
+import gamestrategy.GameStrategy;
 import rules.Rule;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class Match {
         this.overs = overs;
     }
 
-    public void simulate(List<Player> players, RandomWeightedGameStrategy gameStrategy, Rule[] rules, Commentary commentary) {
+    public void simulate(List<Player> players, GameStrategy gameStrategy, Rule[] rules, Commentary commentary) {
         int totalScore = 0;
         ScoreBoard scoreBoard = getInitialScoreBoardOfMatch(players);
         while (!isMatchCompleted(totalScore, scoreBoard)) {

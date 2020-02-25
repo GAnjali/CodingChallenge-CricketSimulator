@@ -1,5 +1,5 @@
 import commentary.Commentary;
-import gamestrategy.RandomWeightedGameStrategy;
+import gamestrategy.GameStrategy;
 import helper.MatchHelper;
 import models.Match;
 import models.Player;
@@ -13,7 +13,7 @@ public class CricketSimulator {
         List<Player> players = matchHelper.createPlayers();
         Match match = matchHelper.createMatch();
         Rule[] rules = matchHelper.createRules();
-        RandomWeightedGameStrategy gameStrategy = matchHelper.createGameStrategy();
+        GameStrategy gameStrategy = matchHelper.createGameStrategy();
         Commentary commentary = matchHelper.createCommentary();
 
         match.simulate(players, gameStrategy, rules, commentary);

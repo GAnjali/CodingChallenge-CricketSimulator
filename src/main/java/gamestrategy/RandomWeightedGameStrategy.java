@@ -10,8 +10,9 @@ import static helper.CrickerSimulatorConstants.RANGE;
 public class RandomWeightedGameStrategy implements GameStrategy {
     private Random random = new Random();
 
-    public int getScoredRuns(Player strikePlayer) {
-        return generateRandomRuns(strikePlayer.getProbability(), generateRandomNumber());
+    @Override
+    public int getScoredRuns(Player player) {
+        return generateRandomRuns(player.getProbability(), generateRandomNumber());
     }
 
     private double generateRandomNumber() {
