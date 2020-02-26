@@ -44,9 +44,7 @@ public class MatchTest {
         players.add(new Player("Shashi Henra", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
         scoreBoard = new ScoreBoard(players.get(0), players.get(1), 0, 4, 0, 40, false);
         match.simulate(players, runStrategy, rules, commentary);
-        for (Player player : players) {
-            assertTrue(player.isOut());
-        }
+        players.forEach(player -> assertTrue(player.isOut()));
     }
 
     @Test
