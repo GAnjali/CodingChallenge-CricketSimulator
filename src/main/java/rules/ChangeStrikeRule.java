@@ -5,6 +5,8 @@ import models.ScoreBoard;
 
 import java.util.List;
 
+import static helper.CricketSimulatorConstants.*;
+
 public class ChangeStrikeRule implements Rule {
     @Override
     public void processScoreBoard(ScoreBoard scoreBoard, List<Player> players) {
@@ -18,7 +20,7 @@ public class ChangeStrikeRule implements Rule {
     }
 
     private boolean isOverComplete(int ballsPlayed) {
-        return ballsPlayed % 6 == 0;
+        return ballsPlayed % NO_OF_BALLS_PER_OVER == 0;
     }
 
     private boolean isOdd(int run) {
@@ -26,9 +28,8 @@ public class ChangeStrikeRule implements Rule {
     }
 
     private void changeStrike(ScoreBoard scoreBoard) {
-        Player striker = scoreBoard.getCurrentStriker();
-        Player nonStriker = scoreBoard.getCurrentNonStriker();
-        scoreBoard.setCurrentStriker(nonStriker);
-        scoreBoard.setCurrentNonStriker(striker);
+        Player nextStriker = scoreBoard.getCurrentNonStriker();
+        scoreBoard.setCurrentNonStriker(scoreBoard.getCurrentStriker());
+        scoreBoard.setCurrentStriker(nextStriker);
     }
 }
