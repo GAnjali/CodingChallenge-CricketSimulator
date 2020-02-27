@@ -5,10 +5,11 @@ import models.Match;
 import models.Player;
 import rules.Rule;
 
+import java.io.IOException;
 import java.util.List;
 
 public class CricketSimulator {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         MatchHelper matchHelper = new MatchHelper();
         List<Player> players = matchHelper.createPlayers();
         Match match = matchHelper.createMatch();
