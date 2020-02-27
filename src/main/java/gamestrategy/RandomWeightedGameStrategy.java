@@ -8,7 +8,11 @@ import java.util.Random;
 import static helper.CricketSimulatorConstants.RANGE;
 
 public class RandomWeightedGameStrategy implements GameStrategy {
-    private Random random = new Random();
+    private Random random;
+
+    public RandomWeightedGameStrategy(){
+        random = new Random();
+    }
 
     @Override
     public int getScoredRuns(Player player) {
