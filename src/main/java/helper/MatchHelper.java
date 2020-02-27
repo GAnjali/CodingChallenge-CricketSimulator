@@ -8,29 +8,54 @@ import rules.ChangeStrikeRule;
 import rules.PlayerOutRule;
 import rules.Rule;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
+
+import static helper.CricketSimulatorConstants.CONFIG_PATH;
 
 public class MatchHelper {
+    Properties properties;
+
+    public MatchHelper() {
+        loadProperties();
+    }
+
+    private void loadProperties() {
+        try (InputStream input = new FileInputStream(CONFIG_PATH)) {
+            properties = new Properties();
+            properties.load(input);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public List<Player> createPlayers() {
-        List<Player> players = new ArrayList<Player>();
-        players.add(new Player("Kirat Boli", Arrays.asList(5.0, 30.0, 25.0, 10.0, 15.0, 1.0, 9.0, 5.0), 0, 0, false));
-        players.add(new Player("NS Nodhi", Arrays.asList(10.0, 40.0, 20.0, 5.0, 10.0, 1.0, 4.0, 10.0), 0, 0, false));
-        players.add(new Player("R Rumrah", Arrays.asList(20.0, 30.0, 15.0, 5.0, 5.0, 1.0, 4.0, 20.0), 0, 0, false));
-        players.add(new Player("Shashi Henra", Arrays.asList(30.0, 25.0, 5.0, 0.0, 5.0, 1.0, 4.0, 30.0), 0, 0, false));
+        List<Player> players = new ArrayList<>();
+        players.add(new Player(properties.getProperty("Player1"), getFormattedList("Probability1"), 0, 0, false));
+        players.add(new Player(properties.getProperty("Player2"), getFormattedList("Probability2"), 0, 0, false));
+        players.add(new Player(properties.getProperty("Player3"), getFormattedList("Probability3"), 0, 0, false));
+        players.add(new Player(properties.getProperty("Player4"), getFormattedList("Probability4"), 0, 0, false));
         return players;
     }
 
+    private List<Double> getFormattedList(String probability) {
+        String[] probabilityItems = properties.getProperty(probability).split(",");
+        List<Double> requiredFormatOfProbability = new ArrayList<>();
+        for (String item : probabilityItems)
+            requiredFormatOfProbability.add(Double.parseDouble(item));
+        return requiredFormatOfProbability;
+    }
+
     public Match createMatch() {
-        return new Match("Bengaluru", "Chennai", 4, 40, 4);
+        return new Match(properties.getProperty("PlayingTeam"), properties.getProperty("OpposingTeam"), Integer.parseInt(properties.getProperty("Wickets")), Integer.parseInt(properties.getProperty("RunsNeededToWin")), Integer.parseInt(properties.getProperty("Overs")));
     }
 
     public Rule[] createRules() {
-        Rule[] rules = new Rule[2];
-        rules[0] = new PlayerOutRule();
-        rules[1] = new ChangeStrikeRule();
-        return rules;
+        return new Rule[]{new PlayerOutRule(), new ChangeStrikeRule()};
     }
 
     public RandomWeightedGameStrategy createGameStrategy() {

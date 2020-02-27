@@ -4,6 +4,7 @@ public class CricketSimulatorConstants {
     public static final int NO_OF_BALLS_PER_OVER = 6;
     public static final int INVALID_RUN = 7;
     public static final int RANGE = 101;
+    public static final String CONFIG_PATH = "C:\\Users\\ganjali\\Documents\\Anjali\\CricketSimulator\\src\\main\\java\\config\\config.properties";
     public static final String OVER_MESSAGE_TEMPLATE = "\n\n%d over%s left. %d runs to win\n";
     public static final String BALL_MESSAGE_TEMPLATE = "\n%d.%d %s scores %d run%s";
     public static final String WON_MESSAGE_TEMPLATE = "\n\n%-5s won by %d wicket%s and %d ball%s remaining";
