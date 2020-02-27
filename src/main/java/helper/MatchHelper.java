@@ -20,17 +20,14 @@ import static helper.CricketSimulatorConstants.CONFIG_PATH;
 public class MatchHelper {
     Properties properties;
 
-    public MatchHelper() {
+    public MatchHelper() throws IOException {
         loadProperties();
     }
 
-    private void loadProperties() {
-        try (InputStream input = new FileInputStream(CONFIG_PATH)) {
-            properties = new Properties();
-            properties.load(input);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+    private void loadProperties() throws IOException {
+        InputStream input = new FileInputStream(CONFIG_PATH);
+        properties = new Properties();
+        properties.load(input);
     }
 
     public List<Player> createPlayers() {
