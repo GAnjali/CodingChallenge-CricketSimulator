@@ -1,6 +1,6 @@
 import commentary.Commentary;
 import gamestrategy.GameStrategy;
-import helper.MatchHelper;
+import helper.Initializer;
 import models.Match;
 import models.Player;
 import rules.Rule;
@@ -10,12 +10,12 @@ import java.util.List;
 
 public class CricketSimulator {
     public static void main(String[] args) throws IOException {
-        MatchHelper matchHelper = new MatchHelper();
-        List<Player> players = matchHelper.createPlayers();
-        Match match = matchHelper.createMatch();
-        Rule[] rules = matchHelper.createRules();
-        GameStrategy gameStrategy = matchHelper.createGameStrategy();
-        Commentary commentary = matchHelper.createCommentary();
+        Initializer initializer = new Initializer();
+        List<Player> players = initializer.createPlayers();
+        Match match = initializer.createMatch();
+        Rule[] rules = initializer.createRules();
+        GameStrategy gameStrategy = initializer.createGameStrategy();
+        Commentary commentary = initializer.createCommentary();
 
         match.simulate(players, gameStrategy, rules, commentary);
     }

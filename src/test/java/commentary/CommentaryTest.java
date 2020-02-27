@@ -1,6 +1,6 @@
 package commentary;
 
-import helper.MatchHelper;
+import helper.Initializer;
 import models.Match;
 import models.Player;
 import models.ScoreBoard;
@@ -17,7 +17,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class CommentaryTest {
-    MatchHelper matchHelper;
+    Initializer initializer;
     Match match;
     ScoreBoard scoreBoard;
     List<Player> players;
@@ -27,8 +27,8 @@ public class CommentaryTest {
 
     @Before
     public void init() throws IOException {
-        matchHelper = new MatchHelper();
-        match = matchHelper.createMatch();
+        initializer = new Initializer();
+        match = initializer.createMatch();
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         commentary = new Commentary();

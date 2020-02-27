@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class MatchHelperTest {
-    MatchHelper matchHelper;
+    Initializer initializer;
     Match match;
     List<Player> players;
     Rule[] rules;
@@ -25,8 +25,8 @@ public class MatchHelperTest {
 
     @Before
     public void init() throws IOException {
-        matchHelper = new MatchHelper();
-        match = matchHelper.createMatch();
+        initializer = new Initializer();
+        match = initializer.createMatch();
         InputStream input = new FileInputStream(CONFIG_PATH);
         properties = new Properties();
         properties.load(input);
@@ -38,21 +38,21 @@ public class MatchHelperTest {
 
     @Test
     public void testShouldVerifyPlayersWhenInitializePlayersCalled() {
-        players = matchHelper.createPlayers();
+        players = initializer.createPlayers();
         for (int playerIndex = 0; playerIndex < getNoOfPlayers(); playerIndex++)
             assertEquals(properties.getProperty("PLAYER_" + (playerIndex + 1)), players.get(playerIndex).getName());
     }
 
     @Test
     public void testShouldVerifyRulesWhenCreateRulesCalled() {
-        rules = matchHelper.createRules();
+        rules = initializer.createRules();
         assertNotNull(rules[0]);
         assertNotNull(rules[1]);
     }
 
     @Test
     public void testShouldVerifyMatchWhenCreateMatchCalled() {
-        match = matchHelper.createMatch();
+        match = initializer.createMatch();
         assertNotNull(match);
     }
 }

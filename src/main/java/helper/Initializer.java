@@ -18,10 +18,10 @@ import java.util.Properties;
 
 import static helper.CricketSimulatorConstants.CONFIG_PATH;
 
-public class MatchHelper {
+public class Initializer {
     Properties properties;
 
-    public MatchHelper() throws IOException {
+    public Initializer() throws IOException {
         loadProperties();
     }
 
