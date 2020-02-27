@@ -33,11 +33,13 @@ public class MatchHelper {
 
     public List<Player> createPlayers() {
         List<Player> players = new ArrayList<>();
-        players.add(new Player(properties.getProperty("Player1"), getFormattedList("Probability1"), 0, 0, false));
-        players.add(new Player(properties.getProperty("Player2"), getFormattedList("Probability2"), 0, 0, false));
-        players.add(new Player(properties.getProperty("Player3"), getFormattedList("Probability3"), 0, 0, false));
-        players.add(new Player(properties.getProperty("Player4"), getFormattedList("Probability4"), 0, 0, false));
+        for (int playerIndex = 1; playerIndex <= getNoOfPlayers(); playerIndex++)
+            players.add(new Player(properties.getProperty("Player" + playerIndex), getFormattedList("Probability" + playerIndex), 0, 0, false));
         return players;
+    }
+
+    private int getNoOfPlayers() {
+        return Integer.parseInt(properties.getProperty("NoOfPlayers"));
     }
 
     private List<Double> getFormattedList(String probability) {

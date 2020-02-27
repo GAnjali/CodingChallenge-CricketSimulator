@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import rules.Rule;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -18,7 +19,7 @@ public class MatchHelperTest {
     Rule[] rules;
 
     @Before
-    public void init() {
+    public void init() throws IOException {
         matchHelper = new MatchHelper();
         match = matchHelper.createMatch();
     }

@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +26,7 @@ public class CommentaryTest {
     String expectedCommentary;
 
     @Before
-    public void init() {
+    public void init() throws IOException {
         matchHelper = new MatchHelper();
         match = matchHelper.createMatch();
         outContent = new ByteArrayOutputStream();
