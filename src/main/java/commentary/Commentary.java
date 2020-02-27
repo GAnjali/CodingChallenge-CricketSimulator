@@ -31,6 +31,18 @@ public class Commentary {
         outputDriver.printBallByBallMessage(overs, ballsCountOfCurrentOver, scoreBoard.getCurrentStriker().getName(), scoreBoard.getCurrentRunCount(), getSuffixString(scoreBoard.getCurrentRunCount()));
     }
 
+    public void generateMatchSummary(ScoreBoard scoreBoard, List<Player> players, String playingTeam) {
+        generateResult(scoreBoard, playingTeam);
+        generatePlayerScores(players, scoreBoard);
+    }
+
+    private void generateResult(ScoreBoard scoreBoard, String playingTeam) {
+        if (scoreBoard.getCurrentRunsToWin() <= 0)
+            generateWonMessage(playingTeam, scoreBoard);
+        else
+            generateLostMessage(playingTeam, scoreBoard);
+    }
+
     public void generateWonMessage(String playingTeam, ScoreBoard scoreBoard) {
         outputDriver.printWonMessage(playingTeam, scoreBoard.getCurrentWicketLeft(), getSuffixString(scoreBoard.getCurrentWicketLeft()), 40 - scoreBoard.getCurrentBallsPlayed(), getSuffixString(40 - scoreBoard.getCurrentBallsPlayed()));
     }

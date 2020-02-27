@@ -6,7 +6,6 @@ import rules.Rule;
 
 import java.util.List;
 
-import static helper.CricketSimulatorConstants.INVALID_RUN;
 import static helper.CricketSimulatorConstants.NO_OF_BALLS_PER_OVER;
 
 public class Match {
@@ -34,7 +33,7 @@ public class Match {
             commentary.generateBallByBallMessage(scoreBoard);
             applyRules(scoreBoard, players, rules);
         }
-        generateMatchSummary(scoreBoard, players, commentary);
+        commentary.generateMatchSummary(scoreBoard, players, this.playingTeam);
     }
 
     private ScoreBoard getInitialScoreBoardOfMatch(List<Player> players) {
@@ -53,17 +52,5 @@ public class Match {
         for (Rule rule : rules) {
             rule.processScoreBoard(scoreBoard, players);
         }
-    }
-
-    private void generateMatchSummary(ScoreBoard scoreBoard, List<Player> players, Commentary commentary) {
-        generateResult(scoreBoard, commentary);
-        commentary.generatePlayerScores(players, scoreBoard);
-    }
-
-    private void generateResult(ScoreBoard scoreBoard, Commentary commentary) {
-        if (scoreBoard.getCurrentRunsToWin() <= 0)
-            commentary.generateWonMessage(this.playingTeam, scoreBoard);
-        else
-            commentary.generateLostMessage(this.playingTeam, scoreBoard);
     }
 }
