@@ -1,27 +1,29 @@
 package view;
 
+import static helper.CricketSimulatorConstants.*;
+
 public class OutputDriver {
     public void print(String message) {
         System.out.print(message);
     }
 
     public void printOverMessage(int remainingOvers, String overSuffix, int runsNeededToWin) {
-        print("\n\n" + remainingOvers + " over" + overSuffix + " left. " + runsNeededToWin + " runs to win\n");
+        print(String.format(OVER_MESSAGE_TEMPLATE, remainingOvers, overSuffix, runsNeededToWin));
     }
 
     public void printBallByBallMessage(int overs, int ballsCountOfCurrentOver, String playerName, int currentRunCount, String runSuffix) {
-        print("\n" + overs + "." + ballsCountOfCurrentOver + " " + playerName + " scores " + currentRunCount + " run" + runSuffix);
+        print(String.format(BALL_MESSAGE_TEMPLATE, overs, ballsCountOfCurrentOver, playerName, currentRunCount, runSuffix));
     }
 
     public void printWonMessage(String team, int remainingWickets, String wicketSuffix, int remainingBalls, String ballSuffix) {
-        print("\n\n" + team + " won by " + remainingWickets + " wicket" + wicketSuffix + " and " + remainingBalls + " ball" + ballSuffix + " remaining");
+        print(String.format(WON_MESSAGE_TEMPLATE, team, remainingWickets, wicketSuffix, remainingBalls, ballSuffix));
     }
 
     public void printLostMessage(String team, int runsNeededToWin, String runSuffix, int remainingBalls, String ballSuffix) {
-        print("\n\n" + team + " Lost by " + runsNeededToWin + " run" + runSuffix + " needed to win and " + remainingBalls + " ball" + ballSuffix + " remaining");
+        print(String.format(LOST_MESSAGE_TEMPLATE, team, runsNeededToWin, runSuffix, remainingBalls, ballSuffix));
     }
 
     public void printPlayerScore(String name, int runs, String playerOnCreaseSuffix, int ballsPlayed, String ballSuffix) {
-        print("\n" + name + " - " + runs + playerOnCreaseSuffix + " (" + ballsPlayed + " ball" + ballSuffix + ")");
+        print(String.format(PLAYER_SCORE_TEMPLATE, name, runs, playerOnCreaseSuffix, ballsPlayed, ballSuffix));
     }
 }
