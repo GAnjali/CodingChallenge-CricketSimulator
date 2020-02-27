@@ -1,6 +1,7 @@
 package models;
 
 import commentary.Commentary;
+import gamestrategy.GameStrategy;
 import gamestrategy.RandomWeightedGameStrategy;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +21,7 @@ public class MatchTest {
     List<Player> players;
     ScoreBoard scoreBoard;
     Match match;
-    RandomWeightedGameStrategy runStrategy;
+    GameStrategy runStrategy;
     Rule[] rules;
     Commentary commentary;
     ByteArrayOutputStream outContent;
@@ -31,9 +32,7 @@ public class MatchTest {
         commentary = new Commentary();
         match = new Match("Bengaluru", "Chennai", 4, 40, 4);
         runStrategy = new RandomWeightedGameStrategy();
-        rules = new Rule[2];
-        rules[0] = new PlayerOutRule();
-        rules[1] = new ChangeStrikeRule();
+        rules = new Rule[]{new PlayerOutRule(), new ChangeStrikeRule()};
     }
 
     @Test
