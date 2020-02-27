@@ -6,8 +6,8 @@ import rules.Rule;
 
 import java.util.List;
 
-import static helper.CrickerSimulatorConstants.INVALID_RUN;
-import static helper.CrickerSimulatorConstants.NO_OF_BALLS_PER_OVER;
+import static helper.CricketSimulatorConstants.INVALID_RUN;
+import static helper.CricketSimulatorConstants.NO_OF_BALLS_PER_OVER;
 
 public class Match {
     private final String playingTeam;

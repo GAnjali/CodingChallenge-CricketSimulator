@@ -5,7 +5,7 @@ import models.Player;
 import java.util.List;
 import java.util.Random;
 
-import static helper.CrickerSimulatorConstants.RANGE;
+import static helper.CricketSimulatorConstants.RANGE;
 
 public class RandomWeightedGameStrategy implements GameStrategy {
     private Random random = new Random();
