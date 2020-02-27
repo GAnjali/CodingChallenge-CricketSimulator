@@ -10,9 +10,15 @@ public class Commentary {
     OutputDriver outputDriver = new OutputDriver();
 
     public void generateOverMessage(ScoreBoard scoreBoard) {
-        int oversLeft = 4 - (scoreBoard.getCurrentBallsPlayed() / 6);
-        int runsNeededToWin = scoreBoard.getCurrentRunsToWin();
-        outputDriver.printOverMessage(oversLeft, getSuffixString(oversLeft), runsNeededToWin);
+        if (isOverStarts(scoreBoard)) {
+            int oversLeft = 4 - (scoreBoard.getCurrentBallsPlayed() / 6);
+            int runsNeededToWin = scoreBoard.getCurrentRunsToWin();
+            outputDriver.printOverMessage(oversLeft, getSuffixString(oversLeft), runsNeededToWin);
+        }
+    }
+
+    private boolean isOverStarts(ScoreBoard scoreBoard) {
+        return scoreBoard.getCurrentBallsPlayed() % 6 == 0;
     }
 
     public void generateBallByBallMessage(ScoreBoard scoreBoard) {

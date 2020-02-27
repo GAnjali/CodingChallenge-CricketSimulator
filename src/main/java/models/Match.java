@@ -28,7 +28,7 @@ public class Match {
         int totalScore = 0;
         ScoreBoard scoreBoard = getInitialScoreBoardOfMatch(players);
         while (!isMatchCompleted(totalScore, scoreBoard)) {
-            generateOverCommentary(scoreBoard, commentary);
+            commentary.generateOverMessage(scoreBoard);
             int scoredRuns = gameStrategy.getScoredRuns(scoreBoard.getCurrentStriker());
             updateScoreBoard(scoredRuns, scoreBoard);
             commentary.generateBallByBallMessage(scoreBoard);
@@ -47,15 +47,6 @@ public class Match {
 
     private int getTotalBalls() {
         return this.overs * NO_OF_BALLS_PER_OVER;
-    }
-
-    private void generateOverCommentary(ScoreBoard scoreBoard, Commentary commentary) {
-        if (isOverStarts(scoreBoard))
-            commentary.generateOverMessage(scoreBoard);
-    }
-
-    private boolean isOverStarts(ScoreBoard scoreBoard) {
-        return scoreBoard.getCurrentBallsPlayed() % 6 == 0;
     }
 
     private void updateScoreBoard(int runsScored, ScoreBoard scoreBoard) {
