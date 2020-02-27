@@ -1,5 +1,7 @@
 package models;
 
+import static helper.CricketSimulatorConstants.INVALID_RUN;
+
 public class ScoreBoard {
     private Player currentStriker;
     private Player currentNonStriker;
@@ -78,5 +80,31 @@ public class ScoreBoard {
 
     public boolean onCrease(Player player) {
         return (player.equals(this.getCurrentStriker()) || player.equals(this.getCurrentNonStriker()));
+    }
+
+    public void updateScoreBoard(int runsScored) {
+        if (runsScored == INVALID_RUN) {
+            updateScoreBoardWhenStrikerGetsOut();
+        } else {
+            updateScoreBoardWhenStrikerScoredRuns(runsScored);
+        }
+        increaseBallCount();
+    }
+
+    private void updateScoreBoardWhenStrikerGetsOut() {
+        this.getCurrentStriker().setOut(true);
+        this.setCurrentPlayerIsOut(true);
+        this.setCurrentWicketLeft(this.getCurrentWicketLeft() - 1);
+    }
+
+    private void updateScoreBoardWhenStrikerScoredRuns(int runsScored) {
+        this.getCurrentStriker().setTotalRuns(this.getCurrentStriker().getTotalRuns() + runsScored);
+        this.setCurrentRunCount(runsScored);
+        this.setCurrentRunsToWin(this.getCurrentRunsToWin() - runsScored);
+    }
+
+    private void increaseBallCount() {
+        this.getCurrentStriker().setTotalBallsPlayed(this.getCurrentStriker().getTotalBallsPlayed() + 1);
+        this.setCurrentBallsPlayed(this.getCurrentBallsPlayed() + 1);
     }
 }

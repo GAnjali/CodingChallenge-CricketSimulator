@@ -30,7 +30,7 @@ public class Match {
         while (!isMatchCompleted(totalScore, scoreBoard)) {
             commentary.generateOverMessage(scoreBoard);
             int scoredRuns = gameStrategy.getScoredRuns(scoreBoard.getCurrentStriker());
-            updateScoreBoard(scoredRuns, scoreBoard);
+            scoreBoard.updateScoreBoard(scoredRuns);
             commentary.generateBallByBallMessage(scoreBoard);
             applyRules(scoreBoard, players, rules);
         }
@@ -47,32 +47,6 @@ public class Match {
 
     private int getTotalBalls() {
         return this.overs * NO_OF_BALLS_PER_OVER;
-    }
-
-    private void updateScoreBoard(int runsScored, ScoreBoard scoreBoard) {
-        if (runsScored == INVALID_RUN) {
-            updateScoreBoardWhenStrikerGetsOut(scoreBoard.getCurrentStriker(), scoreBoard);
-        } else {
-            updateScoreBoardWhenStrikerScoredRuns(runsScored, scoreBoard.getCurrentStriker(), scoreBoard);
-        }
-        increaseBallCount(scoreBoard.getCurrentStriker(), scoreBoard);
-    }
-
-    private void updateScoreBoardWhenStrikerGetsOut(Player striker, ScoreBoard scoreBoard) {
-        striker.setOut(true);
-        scoreBoard.setCurrentPlayerIsOut(true);
-        scoreBoard.setCurrentWicketLeft(scoreBoard.getCurrentWicketLeft() - 1);
-    }
-
-    private void updateScoreBoardWhenStrikerScoredRuns(int runsScored, Player striker, ScoreBoard scoreBoard) {
-        striker.setTotalRuns(striker.getTotalRuns() + runsScored);
-        scoreBoard.setCurrentRunCount(runsScored);
-        scoreBoard.setCurrentRunsToWin(scoreBoard.getCurrentRunsToWin() - runsScored);
-    }
-
-    private void increaseBallCount(Player striker, ScoreBoard scoreBoard) {
-        striker.setTotalBallsPlayed(striker.getTotalBallsPlayed() + 1);
-        scoreBoard.setCurrentBallsPlayed(scoreBoard.getCurrentBallsPlayed() + 1);
     }
 
     private void applyRules(ScoreBoard scoreBoard, List<Player> players, Rule[] rules) {
