@@ -6,9 +6,13 @@ import org.junit.Before;
 import org.junit.Test;
 import rules.Rule;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Properties;
 
+import static helper.CricketSimulatorConstants.CONFIG_PATH;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -17,20 +21,26 @@ public class MatchHelperTest {
     Match match;
     List<Player> players;
     Rule[] rules;
+    Properties properties;
 
     @Before
     public void init() throws IOException {
         matchHelper = new MatchHelper();
         match = matchHelper.createMatch();
+        InputStream input = new FileInputStream(CONFIG_PATH);
+        properties = new Properties();
+        properties.load(input);
+    }
+
+    private int getNoOfPlayers() {
+        return Integer.parseInt(properties.getProperty("NO_OF_PLAYERS"));
     }
 
     @Test
     public void testShouldVerifyPlayersWhenInitializePlayersCalled() {
         players = matchHelper.createPlayers();
-        assertEquals("Kirat Boli", players.get(0).getName());
-        assertEquals("NS Nodhi", players.get(1).getName());
-        assertEquals("R Rumrah", players.get(2).getName());
-        assertEquals("Shashi Henra", players.get(3).getName());
+        for (int playerIndex = 0; playerIndex < getNoOfPlayers(); playerIndex++)
+            assertEquals(properties.getProperty("PLAYER_" + (playerIndex + 1)), players.get(playerIndex).getName());
     }
 
     @Test

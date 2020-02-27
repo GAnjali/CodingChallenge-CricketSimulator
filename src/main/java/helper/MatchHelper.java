@@ -34,12 +34,12 @@ public class MatchHelper {
     public List<Player> createPlayers() {
         List<Player> players = new ArrayList<>();
         for (int playerIndex = 1; playerIndex <= getNoOfPlayers(); playerIndex++)
-            players.add(new Player(properties.getProperty("Player" + playerIndex), getFormattedList("Probability" + playerIndex), 0, 0, false));
+            players.add(new Player(properties.getProperty("PLAYER_" + playerIndex), getFormattedList("PROBABILITY_" + playerIndex), 0, 0, false));
         return players;
     }
 
     private int getNoOfPlayers() {
-        return Integer.parseInt(properties.getProperty("NoOfPlayers"));
+        return Integer.parseInt(properties.getProperty("NO_OF_PLAYERS"));
     }
 
     private List<Double> getFormattedList(String probability) {
@@ -51,7 +51,7 @@ public class MatchHelper {
     }
 
     public Match createMatch() {
-        return new Match(properties.getProperty("PlayingTeam"), properties.getProperty("OpposingTeam"), Integer.parseInt(properties.getProperty("Wickets")), Integer.parseInt(properties.getProperty("RunsNeededToWin")), Integer.parseInt(properties.getProperty("Overs")));
+        return new Match(properties.getProperty("PLAYING_TEAM"), properties.getProperty("OPPOSING_TEAM"), Integer.parseInt(properties.getProperty("WICKETS")), Integer.parseInt(properties.getProperty("RUNS_NEEDED_TO_WIN")), Integer.parseInt(properties.getProperty("OVERS")));
     }
 
     public Rule[] createRules() {
