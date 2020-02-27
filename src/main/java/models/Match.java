@@ -28,10 +28,10 @@ public class Match {
         int totalScore = 0;
         ScoreBoard scoreBoard = getInitialScoreBoardOfMatch(players);
         while (!isMatchCompleted(totalScore, scoreBoard)) {
-//            generateOverCommentary(scoreBoard, commentary);
+            generateOverCommentary(scoreBoard, commentary);
             int scoredRuns = gameStrategy.getScoredRuns(scoreBoard.getCurrentStriker());
             updateScoreBoard(scoredRuns, scoreBoard);
-//            commentary.generateBallByBallMessage(scoreBoard);
+            commentary.generateBallByBallMessage(scoreBoard);
             applyRules(scoreBoard, players, rules);
         }
         generateMatchSummary(scoreBoard, players, commentary);
