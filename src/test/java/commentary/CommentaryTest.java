@@ -31,11 +31,11 @@ public class CommentaryTest {
         match = initializer.createMatch();
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        scoreBoard = new ScoreBoard(players.get(0), players.get(1), 0, 4, 0, 40, false);
-        commentary = new Commentary(scoreBoard);
         players = new ArrayList<>();
         players.add(new Player("Kirat Boli", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
         players.add(new Player("NS Nodhi", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
+        scoreBoard = new ScoreBoard(players.get(0), players.get(1), 0, 4, 0, 40, false);
+        commentary = new Commentary(scoreBoard);
     }
 
     @Test
@@ -56,22 +56,24 @@ public class CommentaryTest {
     @Test
     public void shouldGenerateBallCommentaryForGivenScoreBoard() {
         scoreBoard.setCurrentRunCount(2);
-        commentary.generateBallByBallMessage();
-        expectedCommentary = "\n0.0 Kirat Boli scores 2 runs";
+        scoreBoard.setCurrentBallsPlayed(1);
+        commentary.generateBallMessage();
+        expectedCommentary = "\n0.1 Kirat Boli scores 2 runs";
         assertEquals(expectedCommentary, outContent.toString());
     }
 
     @Test
     public void shouldGenerateBallCommentaryForGivenScoreBoardWith1run() {
-        commentary.generateBallByBallMessage();
-        expectedCommentary = "\n0.0 Kirat Boli scores 0 run";
+        scoreBoard.setCurrentBallsPlayed(1);
+        commentary.generateBallMessage();
+        expectedCommentary = "\n0.1 Kirat Boli scores 0 run";
         assertEquals(expectedCommentary, outContent.toString());
     }
 
     @Test
     public void shouldGenerateBallCommentaryForGivenScoreBoardBallsCount() {
         scoreBoard.setCurrentBallsPlayed(6);
-        commentary.generateBallByBallMessage();
+        commentary.generateBallMessage();
         expectedCommentary = "\n0.6 Kirat Boli scores 0 run";
         assertEquals(expectedCommentary, outContent.toString());
     }
@@ -91,7 +93,7 @@ public class CommentaryTest {
         scoreBoard.setCurrentWicketLeft(0);
         scoreBoard.setCurrentBallsPlayed(20);
         commentary.generateLostMessage("Bengaluru");
-        expectedCommentary = "\n\nBengaluru Lost by 20 runs needed to win and 20 balls remaining";
+        expectedCommentary = "\n\nBengaluru Lost by 20 runs";
         assertEquals(expectedCommentary, outContent.toString());
     }
 

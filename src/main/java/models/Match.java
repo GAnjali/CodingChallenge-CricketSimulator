@@ -37,7 +37,7 @@ public class Match {
             commentary.generateOverMessage();
             int scoredRuns = gameStrategy.getScoredRuns(scoreBoard.getCurrentStriker());
             scoreBoard.updateScoreBoard(scoredRuns);
-            commentary.generateBallByBallMessage();
+            commentary.generateBallMessage();
             applyRules(scoreBoard, players, rules);
         }
         commentary.generateMatchSummary(players, this.playingTeam);

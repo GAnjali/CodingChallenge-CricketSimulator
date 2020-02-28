@@ -27,9 +27,14 @@ public class InitializerTest {
     public void init() throws IOException {
         initializer = new Initializer();
         match = initializer.createMatch();
-        InputStream input = new FileInputStream(CONFIG_PATH);
+        InputStream input = new FileInputStream(getConfigPath());
         properties = new Properties();
         properties.load(input);
+    }
+
+    private String getConfigPath() {
+        String localDir = System.getProperty("user.dir");
+        return localDir + CONFIG_PATH;
     }
 
     private int getNoOfPlayers() {

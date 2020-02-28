@@ -32,7 +32,7 @@ public class Commentary {
         }
     }
 
-    public void generateBallByBallMessage() {
+    public void generateBallMessage() {
         int overs = scoreBoard.getCurrentBallsPlayed() / BALLS_PER_OVER;
         int ballsCountOfCurrentOverModulo = scoreBoard.getCurrentBallsPlayed() % BALLS_PER_OVER;
         if (ballsCountOfCurrentOverModulo == 0) {
