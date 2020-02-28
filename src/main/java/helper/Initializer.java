@@ -1,6 +1,7 @@
 package helper;
 
 import commentary.Commentary;
+import config.Config;
 import gamestrategy.GameStrategy;
 import gamestrategy.RandomWeightedGameStrategy;
 import models.Match;
@@ -9,26 +10,18 @@ import rules.ChangeStrikeRule;
 import rules.PlayerOutRule;
 import rules.Rule;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import static helper.CricketSimulatorConstants.CONFIG_PATH;
-
 public class Initializer {
+    Config config;
     Properties properties;
 
     public Initializer() throws IOException {
-        loadProperties();
-    }
-
-    private void loadProperties() throws IOException {
-        InputStream input = new FileInputStream(CONFIG_PATH);
-        properties = new Properties();
-        properties.load(input);
+        config = new Config();
+        properties = config.loadProperties();
     }
 
     public List<Player> createPlayers() {
