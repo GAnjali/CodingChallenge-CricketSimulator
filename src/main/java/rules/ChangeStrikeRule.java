@@ -28,8 +28,10 @@ public class ChangeStrikeRule implements Rule {
     }
 
     private void changeStrike(ScoreBoard scoreBoard) {
-        Player nextStriker = scoreBoard.getCurrentNonStriker();
-        scoreBoard.setCurrentNonStriker(scoreBoard.getCurrentStriker());
-        scoreBoard.setCurrentStriker(nextStriker);
+        if (scoreBoard.getCurrentNonStriker() != null) {
+            Player nextStriker = scoreBoard.getCurrentNonStriker();
+            scoreBoard.setCurrentNonStriker(scoreBoard.getCurrentStriker());
+            scoreBoard.setCurrentStriker(nextStriker);
+        }
     }
 }

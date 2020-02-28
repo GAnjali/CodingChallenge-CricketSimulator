@@ -83,18 +83,18 @@ public class ScoreBoard {
     }
 
     public void updateScoreBoard(int runsScored) {
-        if (runsScored == INVALID_RUN) {
-            updateScoreBoardWhenStrikerGetsOut();
+        if (runsScored == OUT) {
+            updateScoreBoardWhenStrikerGetsOut(runsScored);
         } else {
             updateScoreBoardWhenStrikerScoredRuns(runsScored);
         }
         increaseBallCount();
     }
 
-    private void updateScoreBoardWhenStrikerGetsOut() {
+    private void updateScoreBoardWhenStrikerGetsOut(int runsScored) {
         this.getCurrentStriker().setOut(true);
         this.setCurrentPlayerIsOut(true);
-        this.setCurrentRunCount(OUT);
+        this.setCurrentRunCount(runsScored);
         this.setCurrentWicketLeft(this.getCurrentWicketLeft() - 1);
     }
 
