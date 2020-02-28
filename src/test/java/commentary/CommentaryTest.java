@@ -31,16 +31,16 @@ public class CommentaryTest {
         match = initializer.createMatch();
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        commentary = new Commentary();
+        scoreBoard = new ScoreBoard(players.get(0), players.get(1), 0, 4, 0, 40, false);
+        commentary = new Commentary(scoreBoard);
         players = new ArrayList<>();
         players.add(new Player("Kirat Boli", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
         players.add(new Player("NS Nodhi", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
-        scoreBoard = new ScoreBoard(players.get(0), players.get(1), 0, 4, 0, 40, false);
     }
 
     @Test
     public void shouldGenerateOverCommentaryForGivenScoreBoard() {
-        commentary.generateOverMessage(scoreBoard);
+        commentary.generateOverMessage();
         expectedCommentary = "\n\n4 overs left. 40 runs to win\n";
         assertEquals(expectedCommentary, outContent.toString());
     }
@@ -48,7 +48,7 @@ public class CommentaryTest {
     @Test
     public void shouldGenerateOverCommentaryForGivenScoreBoardWith1overLeft() {
         scoreBoard.setCurrentBallsPlayed(18);
-        commentary.generateOverMessage(scoreBoard);
+        commentary.generateOverMessage();
         expectedCommentary = "\n\n1 over left. 40 runs to win\n";
         assertEquals(expectedCommentary, outContent.toString());
     }
@@ -56,14 +56,14 @@ public class CommentaryTest {
     @Test
     public void shouldGenerateBallCommentaryForGivenScoreBoard() {
         scoreBoard.setCurrentRunCount(2);
-        commentary.generateBallByBallMessage(scoreBoard);
+        commentary.generateBallByBallMessage();
         expectedCommentary = "\n0.0 Kirat Boli scores 2 runs";
         assertEquals(expectedCommentary, outContent.toString());
     }
 
     @Test
     public void shouldGenerateBallCommentaryForGivenScoreBoardWith1run() {
-        commentary.generateBallByBallMessage(scoreBoard);
+        commentary.generateBallByBallMessage();
         expectedCommentary = "\n0.0 Kirat Boli scores 0 run";
         assertEquals(expectedCommentary, outContent.toString());
     }
@@ -71,7 +71,7 @@ public class CommentaryTest {
     @Test
     public void shouldGenerateBallCommentaryForGivenScoreBoardBallsCount() {
         scoreBoard.setCurrentBallsPlayed(6);
-        commentary.generateBallByBallMessage(scoreBoard);
+        commentary.generateBallByBallMessage();
         expectedCommentary = "\n0.6 Kirat Boli scores 0 run";
         assertEquals(expectedCommentary, outContent.toString());
     }
@@ -80,7 +80,7 @@ public class CommentaryTest {
     public void shouldGenerateWonSummaryCommentaryWithGivenScoreBoard() {
         scoreBoard.setCurrentRunCount(40);
         scoreBoard.setCurrentBallsPlayed(20);
-        commentary.generateWonMessage("Bengaluru", scoreBoard);
+        commentary.generateWonMessage("Bengaluru");
         expectedCommentary = "\n\nBengaluru won by 4 wickets and 20 balls remaining";
         assertEquals(expectedCommentary, outContent.toString());
     }
@@ -90,7 +90,7 @@ public class CommentaryTest {
         scoreBoard.setCurrentRunsToWin(20);
         scoreBoard.setCurrentWicketLeft(0);
         scoreBoard.setCurrentBallsPlayed(20);
-        commentary.generateLostMessage("Bengaluru", scoreBoard);
+        commentary.generateLostMessage("Bengaluru");
         expectedCommentary = "\n\nBengaluru Lost by 20 runs needed to win and 20 balls remaining";
         assertEquals(expectedCommentary, outContent.toString());
     }
@@ -101,7 +101,7 @@ public class CommentaryTest {
         players.get(0).setTotalRuns(10);
         players.get(1).setTotalBallsPlayed(15);
         players.get(1).setTotalRuns(10);
-        commentary.generatePlayerScores(players, scoreBoard);
+        commentary.generatePlayerScores(players);
         expectedCommentary = "\nKirat Boli - 10* (5 balls)\nNS Nodhi - 10* (15 balls)";
         assertEquals(expectedCommentary, outContent.toString());
     }
@@ -113,7 +113,7 @@ public class CommentaryTest {
         players.get(1).setTotalBallsPlayed(15);
         players.get(1).setTotalRuns(10);
         scoreBoard.setCurrentNonStriker(null);
-        commentary.generatePlayerScores(players, scoreBoard);
+        commentary.generatePlayerScores(players);
         expectedCommentary = "\nKirat Boli - 10* (5 balls)\nNS Nodhi - 10 (15 balls)";
         assertEquals(expectedCommentary, outContent.toString());
     }

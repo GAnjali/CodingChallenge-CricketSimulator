@@ -23,21 +23,24 @@ public class Match {
         this.overs = overs;
     }
 
-    public void simulate(List<Player> players, GameStrategy gameStrategy, Rule[] rules, Commentary commentary) {
-        int totalScore = 0;
-        ScoreBoard scoreBoard = getInitialScoreBoardOfMatch(players);
-        while (!isMatchCompleted(totalScore, scoreBoard)) {
-            commentary.generateOverMessage(scoreBoard);
-            int scoredRuns = gameStrategy.getScoredRuns(scoreBoard.getCurrentStriker());
-            scoreBoard.updateScoreBoard(scoredRuns);
-            commentary.generateBallByBallMessage(scoreBoard);
-            applyRules(scoreBoard, players, rules);
-        }
-        commentary.generateMatchSummary(scoreBoard, players, this.playingTeam);
+    public int getWickets() {
+        return wickets;
     }
 
-    private ScoreBoard getInitialScoreBoardOfMatch(List<Player> players) {
-        return new ScoreBoard(players.get(0), players.get(1), 0, this.wickets, 0, this.runNeededToWin, false);
+    public int getRunNeededToWin() {
+        return runNeededToWin;
+    }
+
+    public void simulate(List<Player> players, GameStrategy gameStrategy, Rule[] rules, ScoreBoard scoreBoard, Commentary commentary) {
+        int totalScore = 0;
+        while (!isMatchCompleted(totalScore, scoreBoard)) {
+            commentary.generateOverMessage();
+            int scoredRuns = gameStrategy.getScoredRuns(scoreBoard.getCurrentStriker());
+            scoreBoard.updateScoreBoard(scoredRuns);
+            commentary.generateBallByBallMessage();
+            applyRules(scoreBoard, players, rules);
+        }
+        commentary.generateMatchSummary(players, this.playingTeam);
     }
 
     private boolean isMatchCompleted(int totalScore, ScoreBoard scoreBoard) {

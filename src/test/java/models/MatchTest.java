@@ -29,10 +29,11 @@ public class MatchTest {
     @Before
     public void init() {
         players = new ArrayList<>();
-        commentary = new Commentary();
         match = new Match("Bengaluru", "Chennai", 4, 40, 4);
         runStrategy = new RandomWeightedGameStrategy();
         rules = new Rule[]{new PlayerOutRule(), new ChangeStrikeRule()};
+        scoreBoard = new ScoreBoard(players.get(0), players.get(1), 0, 4, 0, 40, false);
+        commentary = new Commentary(scoreBoard);
     }
 
     @Test
@@ -41,8 +42,7 @@ public class MatchTest {
         players.add(new Player("NS Nodhi", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
         players.add(new Player("R Rumrah", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
         players.add(new Player("Shashi Henra", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
-        scoreBoard = new ScoreBoard(players.get(0), players.get(1), 0, 4, 0, 40, false);
-        match.simulate(players, runStrategy, rules, commentary);
+        match.simulate(players, runStrategy, rules, scoreBoard, commentary);
         players.forEach(player -> assertTrue(player.isOut()));
     }
 
@@ -55,7 +55,7 @@ public class MatchTest {
         scoreBoard = new ScoreBoard(players.get(0), players.get(1), 0, 4, 0, 40, false);
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        match.simulate(players, runStrategy, rules, commentary);
+        match.simulate(players, runStrategy, rules, scoreBoard, commentary);
         assertTrue(outContent.toString().contains("Bengaluru won"));
     }
 }

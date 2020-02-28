@@ -3,6 +3,7 @@ import gamestrategy.GameStrategy;
 import helper.Initializer;
 import models.Match;
 import models.Player;
+import models.ScoreBoard;
 import rules.Rule;
 
 import java.io.IOException;
@@ -15,9 +16,10 @@ public class CricketSimulator {
         Match match = initializer.createMatch();
         Rule[] rules = initializer.createRules();
         GameStrategy gameStrategy = initializer.createGameStrategy();
-        Commentary commentary = initializer.createCommentary();
+        ScoreBoard scoreBoard = initializer.createIntialScoreBoard(players, match);
+        Commentary commentary = initializer.createCommentary(scoreBoard);
 
-        match.simulate(players, gameStrategy, rules, commentary);
+        match.simulate(players, gameStrategy, rules, scoreBoard, commentary);
     }
 }
 

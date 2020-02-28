@@ -10,9 +10,15 @@ import static helper.CricketSimulatorConstants.BALLS_PER_OVER;
 import static helper.CricketSimulatorConstants.OUT;
 
 public class Commentary {
-    OutputDriver outputDriver = new OutputDriver();
+    OutputDriver outputDriver;
+    ScoreBoard scoreBoard;
 
-    public void generateOverMessage(ScoreBoard scoreBoard) {
+    public Commentary(ScoreBoard scoreBoard) {
+        this.scoreBoard = scoreBoard;
+        outputDriver = new OutputDriver();
+    }
+
+    public void generateOverMessage() {
         if (scoreBoard.isOverStarts()) {
             int oversLeft = 4 - (scoreBoard.getCurrentBallsPlayed() / BALLS_PER_OVER);
             int runsNeededToWin = scoreBoard.getCurrentRunsToWin();
@@ -20,7 +26,7 @@ public class Commentary {
         }
     }
 
-    public void generateBallByBallMessage(ScoreBoard scoreBoard) {
+    public void generateBallByBallMessage() {
         int overs = scoreBoard.getCurrentBallsPlayed() / BALLS_PER_OVER;
         int ballsCountOfCurrentOver = scoreBoard.getCurrentBallsPlayed() % BALLS_PER_OVER;
         if (ballsCountOfCurrentOver == 0 && scoreBoard.getCurrentBallsPlayed() != 0) {
@@ -33,27 +39,27 @@ public class Commentary {
             outputDriver.printBallByBallMessage(overs, ballsCountOfCurrentOver, scoreBoard.getCurrentStriker().getName(), scoreBoard.getCurrentRunCount(), getSuffixString(scoreBoard.getCurrentRunCount()));
     }
 
-    public void generateMatchSummary(ScoreBoard scoreBoard, List<Player> players, String playingTeam) {
-        generateResult(scoreBoard, playingTeam);
-        generatePlayerScores(players, scoreBoard);
+    public void generateMatchSummary(List<Player> players, String playingTeam) {
+        generateResult(playingTeam);
+        generatePlayerScores(players);
     }
 
-    private void generateResult(ScoreBoard scoreBoard, String playingTeam) {
+    private void generateResult(String playingTeam) {
         if (scoreBoard.isPlayingTeamWon())
-            generateWonMessage(playingTeam, scoreBoard);
+            generateWonMessage(playingTeam);
         else
-            generateLostMessage(playingTeam, scoreBoard);
+            generateLostMessage(playingTeam);
     }
 
-    public void generateWonMessage(String playingTeam, ScoreBoard scoreBoard) {
+    public void generateWonMessage(String playingTeam) {
         outputDriver.printWonMessage(playingTeam, scoreBoard.getCurrentWicketLeft(), getSuffixString(scoreBoard.getCurrentWicketLeft()), 40 - scoreBoard.getCurrentBallsPlayed(), getSuffixString(40 - scoreBoard.getCurrentBallsPlayed()));
     }
 
-    public void generateLostMessage(String playingTeam, ScoreBoard scoreBoard) {
+    public void generateLostMessage(String playingTeam) {
         outputDriver.printLostMessage(playingTeam, scoreBoard.getCurrentRunsToWin(), getSuffixString(scoreBoard.getCurrentRunsToWin()));
     }
 
-    public void generatePlayerScores(List<Player> players, ScoreBoard scoreBoard) {
+    public void generatePlayerScores(List<Player> players) {
         players.forEach(player -> outputDriver.printPlayerScore(player.getName(), player.getTotalRuns(), getPlayerOnCreaseSuffix(player, scoreBoard), player.getTotalBallsPlayed(), getSuffixString(player.getTotalBallsPlayed())));
     }
 

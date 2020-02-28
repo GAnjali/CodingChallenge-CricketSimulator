@@ -6,6 +6,7 @@ import gamestrategy.GameStrategy;
 import gamestrategy.RandomWeightedGameStrategy;
 import models.Match;
 import models.Player;
+import models.ScoreBoard;
 import rules.ChangeStrikeRule;
 import rules.PlayerOutRule;
 import rules.Rule;
@@ -55,7 +56,11 @@ public class Initializer {
         return new RandomWeightedGameStrategy();
     }
 
-    public Commentary createCommentary() {
-        return new Commentary();
+    public Commentary createCommentary(ScoreBoard scoreBoard) {
+        return new Commentary(scoreBoard);
+    }
+
+    public ScoreBoard createIntialScoreBoard(List<Player> players, Match match) {
+        return new ScoreBoard(players.get(0), players.get(1), 0, match.getWickets(), 0, match.getRunNeededToWin(), false);
     }
 }
