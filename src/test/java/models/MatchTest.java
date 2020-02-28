@@ -10,6 +10,7 @@ import rules.PlayerOutRule;
 import rules.Rule;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,7 +28,7 @@ public class MatchTest {
     ByteArrayOutputStream outContent;
 
     @Before
-    public void init() {
+    public void init() throws IOException {
         players = new ArrayList<>();
         match = new Match("Bengaluru", "Chennai", 4, 40, 4);
         runStrategy = new RandomWeightedGameStrategy();

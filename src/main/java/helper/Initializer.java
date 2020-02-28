@@ -56,7 +56,7 @@ public class Initializer {
         return new RandomWeightedGameStrategy();
     }
 
-    public Commentary createCommentary(ScoreBoard scoreBoard) {
+    public Commentary createCommentary(ScoreBoard scoreBoard) throws IOException {
         return new Commentary(scoreBoard);
     }
 

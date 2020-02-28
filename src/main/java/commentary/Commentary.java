@@ -1,26 +1,32 @@
 package commentary;
 
+import config.Config;
 import models.Player;
 import models.ScoreBoard;
 import view.OutputDriver;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 
-import static helper.CricketSimulatorConstants.BALLS_PER_OVER;
-import static helper.CricketSimulatorConstants.OUT;
+import static helper.CricketSimulatorConstants.*;
 
 public class Commentary {
     OutputDriver outputDriver;
     ScoreBoard scoreBoard;
+    Config config;
+    Properties properties;
 
-    public Commentary(ScoreBoard scoreBoard) {
+    public Commentary(ScoreBoard scoreBoard) throws IOException {
         this.scoreBoard = scoreBoard;
         outputDriver = new OutputDriver();
+        config = new Config();
+        properties = config.loadProperties();
     }
 
     public void generateOverMessage() {
         if (scoreBoard.isOverStarts()) {
-            int oversLeft = 4 - (scoreBoard.getCurrentBallsPlayed() / BALLS_PER_OVER);
+            int oversLeft = Integer.parseInt(properties.getProperty("OVERS")) - (scoreBoard.getCurrentBallsPlayed() / BALLS_PER_OVER);
             int runsNeededToWin = scoreBoard.getCurrentRunsToWin();
             outputDriver.printOverMessage(oversLeft, getSuffixString(oversLeft), runsNeededToWin);
         }
@@ -52,7 +58,8 @@ public class Commentary {
     }
 
     public void generateWonMessage(String playingTeam) {
-        outputDriver.printWonMessage(playingTeam, scoreBoard.getCurrentWicketLeft(), getSuffixString(scoreBoard.getCurrentWicketLeft()), 40 - scoreBoard.getCurrentBallsPlayed(), getSuffixString(40 - scoreBoard.getCurrentBallsPlayed()));
+        int totalRunsNeedToWin = Integer.parseInt(properties.getProperty("RUNS_NEEDED_TO_WIN"));
+        outputDriver.printWonMessage(playingTeam, scoreBoard.getCurrentWicketLeft(), getSuffixString(scoreBoard.getCurrentWicketLeft()), totalRunsNeedToWin - scoreBoard.getCurrentBallsPlayed(), getSuffixString(totalRunsNeedToWin - scoreBoard.getCurrentBallsPlayed()));
     }
 
     public void generateLostMessage(String playingTeam) {
@@ -64,10 +71,10 @@ public class Commentary {
     }
 
     private String getPlayerOnCreaseSuffix(Player player, ScoreBoard scoreBoard) {
-        return scoreBoard.onCrease(player) ? "*" : "";
+        return scoreBoard.onCrease(player) ? SUFFIX_FOR_ON_CREASE_PLAYER : "";
     }
 
     private String getSuffixString(int count) {
-        return count <= 1 ? "" : "s";
+        return count <= 1 ? "" : SUFFIX_FOR_COUNT;
     }
 }
