@@ -16,7 +16,7 @@ import static helper.CricketSimulatorConstants.CONFIG_PATH;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class MatchHelperTest {
+public class InitializerTest {
     Initializer initializer;
     Match match;
     List<Player> players;
