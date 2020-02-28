@@ -7,7 +7,6 @@ import view.OutputDriver;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Properties;
 
 import static helper.CricketSimulatorConstants.*;
 
@@ -15,18 +14,17 @@ public class Commentary {
     OutputDriver outputDriver;
     ScoreBoard scoreBoard;
     Config config;
-    Properties properties;
 
     public Commentary(ScoreBoard scoreBoard) throws IOException {
         this.scoreBoard = scoreBoard;
         outputDriver = new OutputDriver();
         config = new Config();
-        properties = config.loadProperties();
+        config.loadProperties();
     }
 
     public void generateOverMessage() {
         if (scoreBoard.isOverStarts()) {
-            int oversLeft = Integer.parseInt(properties.getProperty("OVERS")) - (scoreBoard.getCurrentBallsPlayed() / BALLS_PER_OVER);
+            int oversLeft = Integer.parseInt(config.getValue("OVERS")) - (scoreBoard.getCurrentBallsPlayed() / BALLS_PER_OVER);
             int runsNeededToWin = scoreBoard.getCurrentRunsToWin();
             outputDriver.printOverMessage(oversLeft, getSuffixString(oversLeft), runsNeededToWin);
         }
@@ -58,7 +56,7 @@ public class Commentary {
     }
 
     public void generateWonMessage(String playingTeam) {
-        int totalRunsNeedToWin = Integer.parseInt(properties.getProperty("RUNS_NEEDED_TO_WIN"));
+        int totalRunsNeedToWin = Integer.parseInt(config.getValue("RUNS_NEEDED_TO_WIN"));
         outputDriver.printWonMessage(playingTeam, scoreBoard.getCurrentWicketLeft(), getSuffixString(scoreBoard.getCurrentWicketLeft()), totalRunsNeedToWin - scoreBoard.getCurrentBallsPlayed(), getSuffixString(totalRunsNeedToWin - scoreBoard.getCurrentBallsPlayed()));
     }
 

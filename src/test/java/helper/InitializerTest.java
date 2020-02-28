@@ -1,18 +1,15 @@
 package helper;
 
+import config.Config;
 import models.Match;
 import models.Player;
 import org.junit.Before;
 import org.junit.Test;
 import rules.Rule;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.Properties;
 
-import static helper.CricketSimulatorConstants.CONFIG_PATH;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -21,31 +18,25 @@ public class InitializerTest {
     Match match;
     List<Player> players;
     Rule[] rules;
-    Properties properties;
+    Config config;
 
     @Before
     public void init() throws IOException {
         initializer = new Initializer();
+        config = new Config();
         match = initializer.createMatch();
-        InputStream input = new FileInputStream(getConfigPath());
-        properties = new Properties();
-        properties.load(input);
-    }
-
-    private String getConfigPath() {
-        String localDir = System.getProperty("user.dir");
-        return localDir + CONFIG_PATH;
+        config.loadProperties();
     }
 
     private int getNoOfPlayers() {
-        return Integer.parseInt(properties.getProperty("NO_OF_PLAYERS"));
+        return Integer.parseInt(config.getValue("NO_OF_PLAYERS"));
     }
 
     @Test
     public void testShouldVerifyPlayersWhenInitializePlayersCalled() {
         players = initializer.createPlayers();
         for (int playerIndex = 0; playerIndex < getNoOfPlayers(); playerIndex++)
-            assertEquals(properties.getProperty("PLAYER_" + (playerIndex + 1)), players.get(playerIndex).getName());
+            assertEquals(config.getValue("PLAYER_" + (playerIndex + 1)), players.get(playerIndex).getName());
     }
 
     @Test

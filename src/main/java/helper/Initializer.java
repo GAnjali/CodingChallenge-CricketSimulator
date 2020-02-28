@@ -14,30 +14,28 @@ import rules.Rule;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 public class Initializer {
     Config config;
-    Properties properties;
 
     public Initializer() throws IOException {
         config = new Config();
-        properties = config.loadProperties();
+        config.loadProperties();
     }
 
     public List<Player> createPlayers() {
         List<Player> players = new ArrayList<>();
         for (int playerIndex = 1; playerIndex <= getNoOfPlayers(); playerIndex++)
-            players.add(new Player(properties.getProperty("PLAYER_" + playerIndex), getFormattedList("PROBABILITY_" + playerIndex), 0, 0, false));
+            players.add(new Player(config.getValue("PLAYER_" + playerIndex), getFormattedList("PROBABILITY_" + playerIndex), 0, 0, false));
         return players;
     }
 
     private int getNoOfPlayers() {
-        return Integer.parseInt(properties.getProperty("NO_OF_PLAYERS"));
+        return Integer.parseInt(config.getValue("NO_OF_PLAYERS"));
     }
 
     private List<Double> getFormattedList(String probability) {
-        String[] probabilityItems = properties.getProperty(probability).split(",");
+        String[] probabilityItems = config.getValue(probability).split(",");
         List<Double> requiredFormatOfProbability = new ArrayList<>();
         for (String item : probabilityItems)
             requiredFormatOfProbability.add(Double.parseDouble(item));
@@ -45,7 +43,7 @@ public class Initializer {
     }
 
     public Match createMatch() {
-        return new Match(properties.getProperty("PLAYING_TEAM"), properties.getProperty("OPPOSING_TEAM"), Integer.parseInt(properties.getProperty("WICKETS")), Integer.parseInt(properties.getProperty("RUNS_NEEDED_TO_WIN")), Integer.parseInt(properties.getProperty("OVERS")));
+        return new Match(config.getValue("PLAYING_TEAM"), config.getValue("OPPOSING_TEAM"), Integer.parseInt(config.getValue("WICKETS")), Integer.parseInt(config.getValue("RUNS_NEEDED_TO_WIN")), Integer.parseInt(config.getValue("OVERS")));
     }
 
     public Rule[] createRules() {

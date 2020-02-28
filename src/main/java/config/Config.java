@@ -10,15 +10,16 @@ import static helper.CricketSimulatorConstants.CONFIG_PATH;
 public class Config {
     Properties properties;
 
-    public Properties loadProperties() throws IOException {
-        InputStream input = new FileInputStream(getConfigPath());
+    public Config() {
         properties = new Properties();
-        properties.load(input);
-        return properties;
     }
 
-    private String getConfigPath() {
-        String localDir = System.getProperty("user.dir");
-        return localDir + CONFIG_PATH;
+    public void loadProperties() throws IOException {
+        InputStream input = new FileInputStream(CONFIG_PATH);
+        properties.load(input);
+    }
+
+    public String getValue(String field) {
+        return properties.getProperty(field);
     }
 }
