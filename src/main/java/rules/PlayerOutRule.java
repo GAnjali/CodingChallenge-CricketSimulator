@@ -46,18 +46,14 @@ public class PlayerOutRule implements Rule {
 
     private void addNewStriker(ScoreBoard scoreBoard, Player newPlayer) {
         if (newPlayer == null)
-            updateStriker(scoreBoard.getCurrentNonStriker(), scoreBoard);
+            scoreBoard.setCurrentStriker(scoreBoard.getCurrentNonStriker());
         else
-            updateStriker(newPlayer, scoreBoard);
+            scoreBoard.setCurrentStriker(newPlayer);
+        scoreBoard.setCurrentPlayerIsOut(false);
     }
 
     private void addNewNonStriker(ScoreBoard scoreBoard, Player newPlayer) {
         scoreBoard.setCurrentNonStriker(newPlayer);
-        scoreBoard.setCurrentPlayerIsOut(false);
-    }
-
-    private void updateStriker(Player newPlayer, ScoreBoard scoreBoard) {
-        scoreBoard.setCurrentStriker(newPlayer);
         scoreBoard.setCurrentPlayerIsOut(false);
     }
 }
