@@ -11,9 +11,14 @@ public class Config {
     Properties properties;
 
     public Properties loadProperties() throws IOException {
-        InputStream input = new FileInputStream(CONFIG_PATH);
+        InputStream input = new FileInputStream(getConfigPath());
         properties = new Properties();
         properties.load(input);
         return properties;
+    }
+
+    private String getConfigPath() {
+        String localDir = System.getProperty("user.dir");
+        return localDir + CONFIG_PATH;
     }
 }
