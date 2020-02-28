@@ -50,7 +50,7 @@ public class Commentary {
     }
 
     public void generateLostMessage(String playingTeam, ScoreBoard scoreBoard) {
-        outputDriver.printLostMessage(playingTeam, scoreBoard.getCurrentRunsToWin(), getSuffixString(scoreBoard.getCurrentRunsToWin()), 40 - scoreBoard.getCurrentBallsPlayed(), getSuffixString(40 - scoreBoard.getCurrentBallsPlayed()));
+        outputDriver.printLostMessage(playingTeam, scoreBoard.getCurrentRunsToWin(), getSuffixString(scoreBoard.getCurrentRunsToWin()));
     }
 
     public void generatePlayerScores(List<Player> players, ScoreBoard scoreBoard) {

@@ -19,8 +19,8 @@ public class OutputDriver {
         print(String.format(WON_MESSAGE_TEMPLATE, team, remainingWickets, wicketSuffix, remainingBalls, ballSuffix));
     }
 
-    public void printLostMessage(String team, int runsNeededToWin, String runSuffix, int remainingBalls, String ballSuffix) {
-        print(String.format(LOST_MESSAGE_TEMPLATE, team, runsNeededToWin, runSuffix, remainingBalls, ballSuffix));
+    public void printLostMessage(String team, int runsNeededToWin, String runSuffix) {
+        print(String.format(LOST_MESSAGE_TEMPLATE, team, runsNeededToWin, runSuffix));
     }
 
     public void printPlayerScore(String name, int runs, String playerOnCreaseSuffix, int ballsPlayed, String ballSuffix) {
