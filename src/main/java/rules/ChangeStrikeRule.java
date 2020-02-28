@@ -9,7 +9,7 @@ import static helper.CricketSimulatorConstants.*;
 
 public class ChangeStrikeRule implements Rule {
     @Override
-    public void processScoreBoard(ScoreBoard scoreBoard, List<Player> players) {
+    public void perform(ScoreBoard scoreBoard, List<Player> players) {
         if (needStrikeChange(scoreBoard)) {
             changeStrike(scoreBoard);
         }

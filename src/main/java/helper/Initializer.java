@@ -25,13 +25,10 @@ public class Initializer {
 
     public List<Player> createPlayers() {
         List<Player> players = new ArrayList<>();
-        for (int playerIndex = 1; playerIndex <= getNoOfPlayers(); playerIndex++)
+        int noOfPlayers = Integer.parseInt(config.getValue("NO_OF_PLAYERS"));
+        for (int playerIndex = 1; playerIndex <= noOfPlayers; playerIndex++)
             players.add(new Player(config.getValue("PLAYER_" + playerIndex), getFormattedList("PROBABILITY_" + playerIndex), 0, 0, false));
         return players;
-    }
-
-    private int getNoOfPlayers() {
-        return Integer.parseInt(config.getValue("NO_OF_PLAYERS"));
     }
 
     private List<Double> getFormattedList(String probability) {
@@ -40,10 +37,6 @@ public class Initializer {
         for (String item : probabilityItems)
             requiredFormatOfProbability.add(Double.parseDouble(item));
         return requiredFormatOfProbability;
-    }
-
-    public Match createMatch() {
-        return new Match(config.getValue("PLAYING_TEAM"), config.getValue("OPPOSING_TEAM"), Integer.parseInt(config.getValue("WICKETS")), Integer.parseInt(config.getValue("RUNS_NEEDED_TO_WIN")), Integer.parseInt(config.getValue("OVERS")));
     }
 
     public Rule[] createRules() {
@@ -58,7 +51,11 @@ public class Initializer {
         return new Commentary(scoreBoard);
     }
 
-    public ScoreBoard createIntialScoreBoard(List<Player> players, Match match) {
-        return new ScoreBoard(players.get(0), players.get(1), 0, match.getWickets(), 0, match.getRunNeededToWin(), false);
+    public ScoreBoard createInitialScoreBoard(List<Player> players) {
+        return new ScoreBoard(players.get(0), players.get(1), 0, Integer.parseInt(config.getValue("WICKETS")), 0, Integer.parseInt(config.getValue("RUNS_NEEDED_TO_WIN")), false);
+    }
+
+    public Match createMatch(List<Player> players, GameStrategy gameStrategy, Rule[] rules, ScoreBoard scoreBoard, Commentary commentary) {
+        return new Match(config.getValue("PLAYING_TEAM"), config.getValue("OPPOSING_TEAM"), Integer.parseInt(config.getValue("OVERS")), players, gameStrategy, rules, scoreBoard, commentary);
     }
 }

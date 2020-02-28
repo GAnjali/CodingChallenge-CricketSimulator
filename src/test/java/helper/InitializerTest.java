@@ -1,7 +1,6 @@
 package helper;
 
 import config.Config;
-import models.Match;
 import models.Player;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +14,6 @@ import static org.junit.Assert.assertNotNull;
 
 public class InitializerTest {
     Initializer initializer;
-    Match match;
     List<Player> players;
     Rule[] rules;
     Config config;
@@ -24,7 +22,6 @@ public class InitializerTest {
     public void init() throws IOException {
         initializer = new Initializer();
         config = new Config();
-        match = initializer.createMatch();
         config.loadProperties();
     }
 
@@ -44,11 +41,5 @@ public class InitializerTest {
         rules = initializer.createRules();
         assertNotNull(rules[0]);
         assertNotNull(rules[1]);
-    }
-
-    @Test
-    public void testShouldVerifyMatchWhenCreateMatchCalled() {
-        match = initializer.createMatch();
-        assertNotNull(match);
     }
 }

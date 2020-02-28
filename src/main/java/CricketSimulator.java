@@ -13,13 +13,13 @@ public class CricketSimulator {
     public static void main(String[] args) throws IOException {
         Initializer initializer = new Initializer();
         List<Player> players = initializer.createPlayers();
-        Match match = initializer.createMatch();
         Rule[] rules = initializer.createRules();
         GameStrategy gameStrategy = initializer.createGameStrategy();
-        ScoreBoard scoreBoard = initializer.createIntialScoreBoard(players, match);
+        ScoreBoard scoreBoard = initializer.createInitialScoreBoard(players);
         Commentary commentary = initializer.createCommentary(scoreBoard);
+        Match match = initializer.createMatch(players, gameStrategy, rules, scoreBoard, commentary);
 
-        match.simulate(players, gameStrategy, rules, scoreBoard, commentary);
+        match.simulate();
     }
 }
 

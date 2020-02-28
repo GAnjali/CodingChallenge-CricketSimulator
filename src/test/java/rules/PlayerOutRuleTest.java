@@ -32,7 +32,7 @@ public class PlayerOutRuleTest {
     public void shouldGetNewStrikerWhenStrikerIsOut() {
         scoreBoard.setCurrentPlayerIsOut(true);
         scoreBoard.getCurrentStriker().setOut(true);
-        playerOutRule.processScoreBoard(scoreBoard, players);
+        playerOutRule.perform(scoreBoard, players);
         assertEquals(players.get(2), scoreBoard.getCurrentStriker());
     }
 
@@ -43,7 +43,7 @@ public class PlayerOutRuleTest {
         players.get(3).setOut(true);
         scoreBoard.setCurrentPlayerIsOut(true);
         scoreBoard.getCurrentStriker().setOut(true);
-        playerOutRule.processScoreBoard(scoreBoard, players);
+        playerOutRule.perform(scoreBoard, players);
         assertEquals(currentNonStriker, scoreBoard.getCurrentStriker());
     }
 
@@ -51,7 +51,7 @@ public class PlayerOutRuleTest {
     public void shouldGetNewNonStrikerWhenNonStrikerIsOut() {
         scoreBoard.setCurrentPlayerIsOut(true);
         scoreBoard.getCurrentNonStriker().setOut(true);
-        playerOutRule.processScoreBoard(scoreBoard, players);
+        playerOutRule.perform(scoreBoard, players);
         assertEquals(players.get(2), scoreBoard.getCurrentNonStriker());
     }
 
@@ -61,7 +61,7 @@ public class PlayerOutRuleTest {
         players.get(3).setOut(true);
         scoreBoard.setCurrentPlayerIsOut(true);
         scoreBoard.getCurrentNonStriker().setOut(true);
-        playerOutRule.processScoreBoard(scoreBoard, players);
+        playerOutRule.perform(scoreBoard, players);
         assertNull(scoreBoard.getCurrentNonStriker());
     }
 }

@@ -28,12 +28,9 @@ public class MatchTest {
     ByteArrayOutputStream outContent;
 
     @Before
-    public void init() throws IOException {
+    public void init() {
         players = new ArrayList<>();
-        match = new Match("Bengaluru", "Chennai", 4, 40, 4);
-        runStrategy = new RandomWeightedGameStrategy();
-        rules = new Rule[]{new PlayerOutRule(), new ChangeStrikeRule()};
-        }
+    }
 
     @Test
     public void testShouldExpectAllPlayersGettingOutWithHighProbablityOfEachPlayerGettingOut() throws IOException {
@@ -43,7 +40,10 @@ public class MatchTest {
         players.add(new Player("Shashi Henra", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
         scoreBoard = new ScoreBoard(players.get(0), players.get(1), 0, 4, 0, 40, false);
         commentary = new Commentary(scoreBoard);
-        match.simulate(players, runStrategy, rules, scoreBoard, commentary);
+        runStrategy = new RandomWeightedGameStrategy();
+        rules = new Rule[]{new PlayerOutRule(), new ChangeStrikeRule()};
+        match = new Match("Bengaluru", "Chennai", 4, players, runStrategy, rules, scoreBoard, commentary);
+        match.simulate();
         players.forEach(player -> assertTrue(player.isOut()));
     }
 
@@ -54,10 +54,14 @@ public class MatchTest {
         players.add(new Player("R Rumrah", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0, 1.0), 0, 0, false));
         players.add(new Player("Shashi Henra", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0, 1.0), 0, 0, false));
         scoreBoard = new ScoreBoard(players.get(0), players.get(1), 0, 4, 0, 40, false);
+        commentary = new Commentary(scoreBoard);
+        runStrategy = new RandomWeightedGameStrategy();
+        rules = new Rule[]{new PlayerOutRule(), new ChangeStrikeRule()};
+        match = new Match("Bengaluru", "Chennai", 4, players, runStrategy, rules, scoreBoard, commentary);
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         commentary = new Commentary(scoreBoard);
-        match.simulate(players, runStrategy, rules, scoreBoard, commentary);
+        match.simulate();
         assertTrue(outContent.toString().contains("Bengaluru won"));
     }
 }

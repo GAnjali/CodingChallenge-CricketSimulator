@@ -12,38 +12,36 @@ public class Match {
     private final String playingTeam;
     private final String opposingTeam;
     private final int overs;
-    private int wickets;
-    private int runNeededToWin;
+    private List<Player> players;
+    private GameStrategy gameStrategy;
+    private Rule[] rules;
+    private ScoreBoard scoreBoard;
+    private Commentary commentary;
 
-    public Match(String playingTeam, String opposingTeam, int wickets, int runNeededToWin, int overs) {
+    public Match(String playingTeam, String opposingTeam, int overs, List<Player> players, GameStrategy gameStrategy, Rule[] rules, ScoreBoard scoreBoard, Commentary commentary) {
         this.playingTeam = playingTeam;
         this.opposingTeam = opposingTeam;
-        this.wickets = wickets;
-        this.runNeededToWin = runNeededToWin;
         this.overs = overs;
+        this.players = players;
+        this.gameStrategy = gameStrategy;
+        this.rules = rules;
+        this.scoreBoard = scoreBoard;
+        this.commentary = commentary;
     }
 
-    public int getWickets() {
-        return wickets;
-    }
-
-    public int getRunNeededToWin() {
-        return runNeededToWin;
-    }
-
-    public void simulate(List<Player> players, GameStrategy gameStrategy, Rule[] rules, ScoreBoard scoreBoard, Commentary commentary) {
+    public void simulate() {
         int totalScore = 0;
-        while (!isMatchCompleted(totalScore, scoreBoard)) {
+        while (!isMatchCompleted(totalScore)) {
             commentary.generateOverMessage();
             int scoredRuns = gameStrategy.getScoredRuns(scoreBoard.getCurrentStriker());
             scoreBoard.updateScoreBoard(scoredRuns);
             commentary.generateBallMessage();
-            applyRules(scoreBoard, players, rules);
+            applyRules();
         }
         commentary.generateMatchSummary(players, this.playingTeam);
     }
 
-    private boolean isMatchCompleted(int totalScore, ScoreBoard scoreBoard) {
+    private boolean isMatchCompleted(int totalScore) {
         return scoreBoard.getCurrentBallsPlayed() >= getTotalBalls() || scoreBoard.getCurrentWicketLeft() == 0 || totalScore > scoreBoard.getCurrentRunsToWin();
     }
 
@@ -51,9 +49,9 @@ public class Match {
         return this.overs * BALLS_PER_OVER;
     }
 
-    private void applyRules(ScoreBoard scoreBoard, List<Player> players, Rule[] rules) {
+    private void applyRules() {
         for (Rule rule : rules) {
-            rule.processScoreBoard(scoreBoard, players);
+            rule.perform(scoreBoard, players);
         }
     }
 }

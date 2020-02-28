@@ -7,7 +7,7 @@ import java.util.List;
 
 public class PlayerOutRule implements Rule {
     @Override
-    public void processScoreBoard(ScoreBoard scoreBoard, List<Player> players) {
+    public void perform(ScoreBoard scoreBoard, List<Player> players) {
         if (scoreBoard.isCurrentPlayerIsOut())
             applyPlayerOutRule(scoreBoard, players);
     }

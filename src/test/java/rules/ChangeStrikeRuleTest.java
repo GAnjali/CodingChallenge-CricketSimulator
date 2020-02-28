@@ -33,7 +33,7 @@ public class ChangeStrikeRuleTest {
         Player striker = scoreBoard.getCurrentStriker();
         scoreBoard.setCurrentRunCount(1);
         scoreBoard.setCurrentBallsPlayed(1);
-        changeStrikeRule.processScoreBoard(scoreBoard, players);
+        changeStrikeRule.perform(scoreBoard, players);
         assertEquals(striker, scoreBoard.getCurrentNonStriker());
     }
 
@@ -42,7 +42,7 @@ public class ChangeStrikeRuleTest {
         Player striker = scoreBoard.getCurrentStriker();
         scoreBoard.setCurrentRunCount(2);
         scoreBoard.setCurrentBallsPlayed(1);
-        changeStrikeRule.processScoreBoard(scoreBoard, players);
+        changeStrikeRule.perform(scoreBoard, players);
         assertEquals(striker, scoreBoard.getCurrentStriker());
     }
 
@@ -50,7 +50,7 @@ public class ChangeStrikeRuleTest {
     public void shouldChangeStrikeWhenOverCompleted() {
         Player striker = scoreBoard.getCurrentStriker();
         scoreBoard.setCurrentBallsPlayed(6);
-        changeStrikeRule.processScoreBoard(scoreBoard, players);
+        changeStrikeRule.perform(scoreBoard, players);
         assertNotEquals(striker, scoreBoard.getCurrentStriker());
     }
 }

@@ -1,7 +1,6 @@
 package commentary;
 
 import helper.Initializer;
-import models.Match;
 import models.Player;
 import models.ScoreBoard;
 import org.junit.Before;
@@ -18,7 +17,6 @@ import static org.junit.Assert.assertEquals;
 
 public class CommentaryTest {
     Initializer initializer;
-    Match match;
     ScoreBoard scoreBoard;
     List<Player> players;
     Commentary commentary;
@@ -28,7 +26,6 @@ public class CommentaryTest {
     @Before
     public void init() throws IOException {
         initializer = new Initializer();
-        match = initializer.createMatch();
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         players = new ArrayList<>();
