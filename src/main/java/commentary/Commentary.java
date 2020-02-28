@@ -34,15 +34,15 @@ public class Commentary {
 
     public void generateBallByBallMessage() {
         int overs = scoreBoard.getCurrentBallsPlayed() / BALLS_PER_OVER;
-        int ballsCountOfCurrentOver = scoreBoard.getCurrentBallsPlayed() % BALLS_PER_OVER;
-        if (ballsCountOfCurrentOver == 0 && scoreBoard.getCurrentBallsPlayed() != 0) {
-            ballsCountOfCurrentOver = BALLS_PER_OVER;
-            overs = overs - 1;
+        int ballsCountOfCurrentOverModulo = scoreBoard.getCurrentBallsPlayed() % BALLS_PER_OVER;
+        if (ballsCountOfCurrentOverModulo == 0) {
+            ballsCountOfCurrentOverModulo = BALLS_PER_OVER;
+            overs--;
         }
         if (scoreBoard.getCurrentRunCount() == OUT)
-            outputDriver.printOutMessage(overs, ballsCountOfCurrentOver, scoreBoard.getCurrentStriker().getName());
+            outputDriver.printOutMessage(overs, ballsCountOfCurrentOverModulo, scoreBoard.getCurrentStriker().getName());
         else
-            outputDriver.printBallByBallMessage(overs, ballsCountOfCurrentOver, scoreBoard.getCurrentStriker().getName(), scoreBoard.getCurrentRunCount(), getSuffixString(scoreBoard.getCurrentRunCount()));
+            outputDriver.printBallByBallMessage(overs, ballsCountOfCurrentOverModulo, scoreBoard.getCurrentStriker().getName(), scoreBoard.getCurrentRunCount(), getSuffixString(scoreBoard.getCurrentRunCount()));
     }
 
     public void generateMatchSummary(List<Player> players, String playingTeam) {

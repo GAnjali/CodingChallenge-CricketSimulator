@@ -23,10 +23,10 @@ public class RandomWeightedGameStrategy implements GameStrategy {
         return random.nextInt(RANGE);
     }
 
-    private int generateRandomRuns(List<Double> probability, double randomNumber) {
+    private int generateRandomRuns(List<Double> runsProbability, double randomNumber) {
         double weight = 0;
-        for (int run = 0; run < probability.size(); run++) {
-            weight += probability.get(run);
+        for (int run = 0; run < runsProbability.size(); run++) {
+            weight += runsProbability.get(run);
             if (randomNumber < weight) {
                 return run;
             }
