@@ -26,4 +26,8 @@ public class OutputDriver {
     public void printPlayerScore(String name, int runs, String playerOnCreaseSuffix, int ballsPlayed, String ballSuffix) {
         print(String.format(PLAYER_SCORE_TEMPLATE, name, runs, playerOnCreaseSuffix, ballsPlayed, ballSuffix));
     }
+
+    public void printOutMessage(int overs, int ballsCountOfCurrentOver, String name) {
+        print(String.format(PLAYER_OUT_MESSAGE_TEMPLATE, overs, ballsCountOfCurrentOver, name));
+    }
 }

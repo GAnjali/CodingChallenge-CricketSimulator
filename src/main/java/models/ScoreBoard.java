@@ -1,7 +1,6 @@
 package models;
 
-import static helper.CricketSimulatorConstants.INVALID_RUN;
-import static helper.CricketSimulatorConstants.BALLS_PER_OVER;
+import static helper.CricketSimulatorConstants.*;
 
 public class ScoreBoard {
     private Player currentStriker;
@@ -95,6 +94,7 @@ public class ScoreBoard {
     private void updateScoreBoardWhenStrikerGetsOut() {
         this.getCurrentStriker().setOut(true);
         this.setCurrentPlayerIsOut(true);
+        this.setCurrentRunCount(OUT);
         this.setCurrentWicketLeft(this.getCurrentWicketLeft() - 1);
     }
 

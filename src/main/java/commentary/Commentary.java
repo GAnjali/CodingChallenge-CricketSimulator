@@ -7,6 +7,7 @@ import view.OutputDriver;
 import java.util.List;
 
 import static helper.CricketSimulatorConstants.BALLS_PER_OVER;
+import static helper.CricketSimulatorConstants.OUT;
 
 public class Commentary {
     OutputDriver outputDriver = new OutputDriver();
@@ -26,7 +27,10 @@ public class Commentary {
             ballsCountOfCurrentOver = BALLS_PER_OVER;
             overs = overs - 1;
         }
-        outputDriver.printBallByBallMessage(overs, ballsCountOfCurrentOver, scoreBoard.getCurrentStriker().getName(), scoreBoard.getCurrentRunCount(), getSuffixString(scoreBoard.getCurrentRunCount()));
+        if (scoreBoard.getCurrentRunCount() == OUT)
+            outputDriver.printOutMessage(overs, ballsCountOfCurrentOver, scoreBoard.getCurrentStriker().getName());
+        else
+            outputDriver.printBallByBallMessage(overs, ballsCountOfCurrentOver, scoreBoard.getCurrentStriker().getName(), scoreBoard.getCurrentRunCount(), getSuffixString(scoreBoard.getCurrentRunCount()));
     }
 
     public void generateMatchSummary(ScoreBoard scoreBoard, List<Player> players, String playingTeam) {
