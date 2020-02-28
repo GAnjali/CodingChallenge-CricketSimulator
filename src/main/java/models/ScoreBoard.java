@@ -1,6 +1,7 @@
 package models;
 
 import static helper.CricketSimulatorConstants.INVALID_RUN;
+import static helper.CricketSimulatorConstants.BALLS_PER_OVER;
 
 public class ScoreBoard {
     private Player currentStriker;
@@ -106,5 +107,13 @@ public class ScoreBoard {
     private void increaseBallCount() {
         this.getCurrentStriker().setTotalBallsPlayed(this.getCurrentStriker().getTotalBallsPlayed() + 1);
         this.setCurrentBallsPlayed(this.getCurrentBallsPlayed() + 1);
+    }
+
+    public boolean isOverStarts() {
+        return this.getCurrentBallsPlayed() % BALLS_PER_OVER == 0;
+    }
+
+    public boolean isPlayingTeamWon() {
+        return this.getCurrentRunsToWin() <= 0;
     }
 }

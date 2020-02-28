@@ -6,7 +6,7 @@ import rules.Rule;
 
 import java.util.List;
 
-import static helper.CricketSimulatorConstants.NO_OF_BALLS_PER_OVER;
+import static helper.CricketSimulatorConstants.BALLS_PER_OVER;
 
 public class Match {
     private final String playingTeam;
@@ -45,7 +45,7 @@ public class Match {
     }
 
     private int getTotalBalls() {
-        return this.overs * NO_OF_BALLS_PER_OVER;
+        return this.overs * BALLS_PER_OVER;
     }
 
     private void applyRules(ScoreBoard scoreBoard, List<Player> players, Rule[] rules) {

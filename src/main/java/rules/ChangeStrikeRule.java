@@ -20,7 +20,7 @@ public class ChangeStrikeRule implements Rule {
     }
 
     private boolean isOverComplete(int ballsPlayed) {
-        return ballsPlayed % NO_OF_BALLS_PER_OVER == 0;
+        return ballsPlayed % BALLS_PER_OVER == 0;
     }
 
     private boolean isOdd(int run) {

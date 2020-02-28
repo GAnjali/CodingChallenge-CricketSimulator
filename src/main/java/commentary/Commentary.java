@@ -6,26 +6,24 @@ import view.OutputDriver;
 
 import java.util.List;
 
+import static helper.CricketSimulatorConstants.BALLS_PER_OVER;
+
 public class Commentary {
     OutputDriver outputDriver = new OutputDriver();
 
     public void generateOverMessage(ScoreBoard scoreBoard) {
-        if (isOverStarts(scoreBoard)) {
-            int oversLeft = 4 - (scoreBoard.getCurrentBallsPlayed() / 6);
+        if (scoreBoard.isOverStarts()) {
+            int oversLeft = 4 - (scoreBoard.getCurrentBallsPlayed() / BALLS_PER_OVER);
             int runsNeededToWin = scoreBoard.getCurrentRunsToWin();
             outputDriver.printOverMessage(oversLeft, getSuffixString(oversLeft), runsNeededToWin);
         }
     }
 
-    private boolean isOverStarts(ScoreBoard scoreBoard) {
-        return scoreBoard.getCurrentBallsPlayed() % 6 == 0;
-    }
-
     public void generateBallByBallMessage(ScoreBoard scoreBoard) {
-        int overs = scoreBoard.getCurrentBallsPlayed() / 6;
-        int ballsCountOfCurrentOver = scoreBoard.getCurrentBallsPlayed() % 6;
+        int overs = scoreBoard.getCurrentBallsPlayed() / BALLS_PER_OVER;
+        int ballsCountOfCurrentOver = scoreBoard.getCurrentBallsPlayed() % BALLS_PER_OVER;
         if (ballsCountOfCurrentOver == 0 && scoreBoard.getCurrentBallsPlayed() != 0) {
-            ballsCountOfCurrentOver = 6;
+            ballsCountOfCurrentOver = BALLS_PER_OVER;
             overs = overs - 1;
         }
         outputDriver.printBallByBallMessage(overs, ballsCountOfCurrentOver, scoreBoard.getCurrentStriker().getName(), scoreBoard.getCurrentRunCount(), getSuffixString(scoreBoard.getCurrentRunCount()));
@@ -37,7 +35,7 @@ public class Commentary {
     }
 
     private void generateResult(ScoreBoard scoreBoard, String playingTeam) {
-        if (scoreBoard.getCurrentRunsToWin() <= 0)
+        if (scoreBoard.isPlayingTeamWon())
             generateWonMessage(playingTeam, scoreBoard);
         else
             generateLostMessage(playingTeam, scoreBoard);
