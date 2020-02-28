@@ -1,5 +1,6 @@
 package commentary;
 
+import config.Config;
 import helper.Initializer;
 import models.Player;
 import models.ScoreBoard;
@@ -22,17 +23,20 @@ public class CommentaryTest {
     Commentary commentary;
     ByteArrayOutputStream outContent;
     String expectedCommentary;
+    Config config;
 
     @Before
     public void init() throws IOException {
         initializer = new Initializer();
+        config = new Config();
+        config.loadProperties();
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         players = new ArrayList<>();
         players.add(new Player("Kirat Boli", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
         players.add(new Player("NS Nodhi", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
         scoreBoard = new ScoreBoard(players.get(0), players.get(1), 0, 4, 0, 40, false);
-        commentary = new Commentary(scoreBoard);
+        commentary = new Commentary(scoreBoard, config);
     }
 
     @Test

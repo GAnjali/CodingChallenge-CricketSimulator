@@ -15,11 +15,10 @@ public class Commentary {
     ScoreBoard scoreBoard;
     Config config;
 
-    public Commentary(ScoreBoard scoreBoard) throws IOException {
+    public Commentary(ScoreBoard scoreBoard, Config config) {
         this.scoreBoard = scoreBoard;
         outputDriver = new OutputDriver();
-        config = new Config();
-        config.loadProperties();
+        this.config = config;
     }
 
     public void generateOverMessage() {

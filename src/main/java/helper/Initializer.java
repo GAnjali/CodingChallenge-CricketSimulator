@@ -48,7 +48,7 @@ public class Initializer {
     }
 
     public Commentary createCommentary(ScoreBoard scoreBoard) throws IOException {
-        return new Commentary(scoreBoard);
+        return new Commentary(scoreBoard, config);
     }
 
     public ScoreBoard createInitialScoreBoard(List<Player> players) {

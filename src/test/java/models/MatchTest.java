@@ -1,6 +1,7 @@
 package models;
 
 import commentary.Commentary;
+import config.Config;
 import gamestrategy.GameStrategy;
 import gamestrategy.RandomWeightedGameStrategy;
 import org.junit.Before;
@@ -26,10 +27,13 @@ public class MatchTest {
     Rule[] rules;
     Commentary commentary;
     ByteArrayOutputStream outContent;
+    Config config;
 
     @Before
-    public void init() {
+    public void init() throws IOException {
         players = new ArrayList<>();
+        config = new Config();
+        config.loadProperties();
     }
 
     @Test
@@ -39,7 +43,7 @@ public class MatchTest {
         players.add(new Player("R Rumrah", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
         players.add(new Player("Shashi Henra", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0), 0, 0, false));
         scoreBoard = new ScoreBoard(players.get(0), players.get(1), 0, 4, 0, 40, false);
-        commentary = new Commentary(scoreBoard);
+        commentary = new Commentary(scoreBoard, config);
         runStrategy = new RandomWeightedGameStrategy();
         rules = new Rule[]{new PlayerOutRule(), new ChangeStrikeRule()};
         match = new Match("Bengaluru", "Chennai", 4, players, runStrategy, rules, scoreBoard, commentary);
@@ -54,13 +58,13 @@ public class MatchTest {
         players.add(new Player("R Rumrah", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0, 1.0), 0, 0, false));
         players.add(new Player("Shashi Henra", Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 93.0, 1.0), 0, 0, false));
         scoreBoard = new ScoreBoard(players.get(0), players.get(1), 0, 4, 0, 40, false);
-        commentary = new Commentary(scoreBoard);
+        commentary = new Commentary(scoreBoard, config);
         runStrategy = new RandomWeightedGameStrategy();
         rules = new Rule[]{new PlayerOutRule(), new ChangeStrikeRule()};
         match = new Match("Bengaluru", "Chennai", 4, players, runStrategy, rules, scoreBoard, commentary);
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        commentary = new Commentary(scoreBoard);
+        commentary = new Commentary(scoreBoard, config);
         match.simulate();
         assertTrue(outContent.toString().contains("Bengaluru won"));
     }
