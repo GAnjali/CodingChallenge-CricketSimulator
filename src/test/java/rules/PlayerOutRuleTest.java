@@ -48,14 +48,6 @@ public class PlayerOutRuleTest {
     }
 
     @Test
-    public void shouldGetNewNonStrikerWhenNonStrikerIsOut() {
-        scoreBoard.setCurrentPlayerIsOut(true);
-        scoreBoard.getCurrentNonStriker().setOut(true);
-        playerOutRule.perform(scoreBoard, players);
-        assertEquals(players.get(2), scoreBoard.getCurrentNonStriker());
-    }
-
-    @Test
     public void shouldGetEmptyNonStrikerWhenNonStrikerIsOutAndThereAreNoPlayerToPlay() {
         players.get(2).setOut(true);
         players.get(3).setOut(true);
