@@ -24,15 +24,15 @@ public class Initializer {
     }
 
     public Match initializeMatch() {
-        List<Player> players = createPlayers();
-        Rule[] rules = createRules();
-        GameStrategy gameStrategy = createGameStrategy();
-        ScoreBoard scoreBoard = createInitialScoreBoard(players);
-        Commentary commentary = createCommentary(scoreBoard);
-        return createMatch(players, gameStrategy, rules, scoreBoard, commentary);
+        List<Player> players = initializePlayers();
+        Rule[] rules = initializeRules();
+        GameStrategy gameStrategy = initializeGameStrategy();
+        ScoreBoard scoreBoard = initializeScoreBoard(players);
+        Commentary commentary = initializeCommentary(scoreBoard);
+        return new Match(config.getValue("PLAYING_TEAM"), config.getValue("OPPOSING_TEAM"), Integer.parseInt(config.getValue("OVERS")), players, gameStrategy, rules, scoreBoard, commentary);
     }
 
-    private List<Player> createPlayers() {
+    private List<Player> initializePlayers() {
         List<Player> players = new ArrayList<>();
         int noOfPlayers = Integer.parseInt(config.getValue("NO_OF_PLAYERS"));
         for (int playerIndex = 1; playerIndex <= noOfPlayers; playerIndex++)
@@ -48,23 +48,19 @@ public class Initializer {
         return requiredFormatOfProbability;
     }
 
-    private Rule[] createRules() {
+    private Rule[] initializeRules() {
         return new Rule[]{new PlayerOutRule(), new ChangeStrikeRule()};
     }
 
-    private GameStrategy createGameStrategy() {
+    private GameStrategy initializeGameStrategy() {
         return new RandomWeightedGameStrategy();
     }
 
-    private Commentary createCommentary(ScoreBoard scoreBoard) {
+    private Commentary initializeCommentary(ScoreBoard scoreBoard) {
         return new Commentary(scoreBoard, config);
     }
 
-    private ScoreBoard createInitialScoreBoard(List<Player> players) {
+    private ScoreBoard initializeScoreBoard(List<Player> players) {
         return new ScoreBoard(players.get(0), players.get(1), 0, Integer.parseInt(config.getValue("WICKETS")), 0, Integer.parseInt(config.getValue("RUNS_NEEDED_TO_WIN")), false);
-    }
-
-    private Match createMatch(List<Player> players, GameStrategy gameStrategy, Rule[] rules, ScoreBoard scoreBoard, Commentary commentary) {
-        return new Match(config.getValue("PLAYING_TEAM"), config.getValue("OPPOSING_TEAM"), Integer.parseInt(config.getValue("OVERS")), players, gameStrategy, rules, scoreBoard, commentary);
     }
 }
