@@ -23,7 +23,16 @@ public class Initializer {
         config.loadProperties();
     }
 
-    public List<Player> createPlayers() {
+    public Match initializeMatch() {
+        List<Player> players = createPlayers();
+        Rule[] rules = createRules();
+        GameStrategy gameStrategy = createGameStrategy();
+        ScoreBoard scoreBoard = createInitialScoreBoard(players);
+        Commentary commentary = createCommentary(scoreBoard);
+        return createMatch(players, gameStrategy, rules, scoreBoard, commentary);
+    }
+
+    private List<Player> createPlayers() {
         List<Player> players = new ArrayList<>();
         int noOfPlayers = Integer.parseInt(config.getValue("NO_OF_PLAYERS"));
         for (int playerIndex = 1; playerIndex <= noOfPlayers; playerIndex++)
@@ -39,15 +48,15 @@ public class Initializer {
         return requiredFormatOfProbability;
     }
 
-    public Rule[] createRules() {
+    private Rule[] createRules() {
         return new Rule[]{new PlayerOutRule(), new ChangeStrikeRule()};
     }
 
-    public GameStrategy createGameStrategy() {
+    private GameStrategy createGameStrategy() {
         return new RandomWeightedGameStrategy();
     }
 
-    public Commentary createCommentary(ScoreBoard scoreBoard) throws IOException {
+    private Commentary createCommentary(ScoreBoard scoreBoard) {
         return new Commentary(scoreBoard, config);
     }
 
@@ -55,7 +64,7 @@ public class Initializer {
         return new ScoreBoard(players.get(0), players.get(1), 0, Integer.parseInt(config.getValue("WICKETS")), 0, Integer.parseInt(config.getValue("RUNS_NEEDED_TO_WIN")), false);
     }
 
-    public Match createMatch(List<Player> players, GameStrategy gameStrategy, Rule[] rules, ScoreBoard scoreBoard, Commentary commentary) {
+    private Match createMatch(List<Player> players, GameStrategy gameStrategy, Rule[] rules, ScoreBoard scoreBoard, Commentary commentary) {
         return new Match(config.getValue("PLAYING_TEAM"), config.getValue("OPPOSING_TEAM"), Integer.parseInt(config.getValue("OVERS")), players, gameStrategy, rules, scoreBoard, commentary);
     }
 }
