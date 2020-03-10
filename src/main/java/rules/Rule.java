@@ -6,5 +6,5 @@ import models.Player;
 import java.util.List;
 
 public interface Rule {
-    void perform(ScoreBoard status, List<Player> players);
+    void perform(ScoreBoard scoreBoard, List<Player> players);
 }
