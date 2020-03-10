@@ -3,21 +3,20 @@ package commentary;
 import config.Config;
 import models.Player;
 import models.ScoreBoard;
-import view.OutputDriver;
+import view.Logger;
 
-import java.io.IOException;
 import java.util.List;
 
 import static helper.CricketSimulatorConstants.*;
 
 public class Commentary {
-    OutputDriver outputDriver;
+    Logger logger;
     ScoreBoard scoreBoard;
     Config config;
 
     public Commentary(ScoreBoard scoreBoard, Config config) {
         this.scoreBoard = scoreBoard;
-        outputDriver = new OutputDriver();
+        logger = new Logger();
         this.config = config;
     }
 
@@ -25,7 +24,7 @@ public class Commentary {
         if (scoreBoard.isOverStarts()) {
             int oversLeft = Integer.parseInt(config.getValue("OVERS")) - (scoreBoard.getCurrentBallsPlayed() / BALLS_PER_OVER);
             int runsNeededToWin = scoreBoard.getCurrentRunsToWin();
-            outputDriver.printOverMessage(oversLeft, getSuffixString(oversLeft), runsNeededToWin);
+            logger.printOverMessage(oversLeft, getSuffixString(oversLeft), runsNeededToWin);
         }
     }
 
@@ -37,9 +36,9 @@ public class Commentary {
             overs--;
         }
         if (scoreBoard.getCurrentRunCount() == OUT)
-            outputDriver.printOutMessage(overs, ballsCountOfCurrentOverModulo, scoreBoard.getCurrentStriker().getName());
+            logger.printOutMessage(overs, ballsCountOfCurrentOverModulo, scoreBoard.getCurrentStriker().getName());
         else
-            outputDriver.printBallByBallMessage(overs, ballsCountOfCurrentOverModulo, scoreBoard.getCurrentStriker().getName(), scoreBoard.getCurrentRunCount(), getSuffixString(scoreBoard.getCurrentRunCount()));
+            logger.printBallByBallMessage(overs, ballsCountOfCurrentOverModulo, scoreBoard.getCurrentStriker().getName(), scoreBoard.getCurrentRunCount(), getSuffixString(scoreBoard.getCurrentRunCount()));
     }
 
     public void generateMatchSummary(List<Player> players, String playingTeam) {
@@ -56,15 +55,15 @@ public class Commentary {
 
     public void generateWonMessage(String playingTeam) {
         int totalRunsNeedToWin = Integer.parseInt(config.getValue("RUNS_NEEDED_TO_WIN"));
-        outputDriver.printWonMessage(playingTeam, scoreBoard.getCurrentWicketLeft(), getSuffixString(scoreBoard.getCurrentWicketLeft()), totalRunsNeedToWin - scoreBoard.getCurrentBallsPlayed(), getSuffixString(totalRunsNeedToWin - scoreBoard.getCurrentBallsPlayed()));
+        logger.printWonMessage(playingTeam, scoreBoard.getCurrentWicketLeft(), getSuffixString(scoreBoard.getCurrentWicketLeft()), totalRunsNeedToWin - scoreBoard.getCurrentBallsPlayed(), getSuffixString(totalRunsNeedToWin - scoreBoard.getCurrentBallsPlayed()));
     }
 
     public void generateLostMessage(String playingTeam) {
-        outputDriver.printLostMessage(playingTeam, scoreBoard.getCurrentRunsToWin(), getSuffixString(scoreBoard.getCurrentRunsToWin()));
+        logger.printLostMessage(playingTeam, scoreBoard.getCurrentRunsToWin(), getSuffixString(scoreBoard.getCurrentRunsToWin()));
     }
 
     public void generatePlayerScores(List<Player> players) {
-        players.forEach(player -> outputDriver.printPlayerScore(player.getName(), player.getTotalRuns(), getPlayerOnCreaseSuffix(player, scoreBoard), player.getTotalBallsPlayed(), getSuffixString(player.getTotalBallsPlayed())));
+        players.forEach(player -> logger.printPlayerScore(player.getName(), player.getTotalRuns(), getPlayerOnCreaseSuffix(player, scoreBoard), player.getTotalBallsPlayed(), getSuffixString(player.getTotalBallsPlayed())));
     }
 
     private String getPlayerOnCreaseSuffix(Player player, ScoreBoard scoreBoard) {

@@ -2,7 +2,7 @@ package view;
 
 import static helper.CricketSimulatorConstants.*;
 
-public class OutputDriver {
+public class Logger {
     public void print(String message) {
         System.out.print(message);
     }
