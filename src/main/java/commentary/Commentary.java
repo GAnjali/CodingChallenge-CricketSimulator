@@ -24,7 +24,7 @@ public class Commentary {
         if (scoreBoard.isOverStarts()) {
             int oversLeft = Integer.parseInt(config.getValue("OVERS")) - (scoreBoard.getCurrentBallsPlayed() / BALLS_PER_OVER);
             int runsNeededToWin = scoreBoard.getCurrentRunsToWin();
-            logger.printOverMessage(oversLeft, getSuffixString(oversLeft), runsNeededToWin);
+            logger.logOverMessage(oversLeft, getSuffixString(oversLeft), runsNeededToWin);
         }
     }
 
@@ -36,9 +36,9 @@ public class Commentary {
             overs--;
         }
         if (scoreBoard.getCurrentRunCount() == OUT)
-            logger.printOutMessage(overs, ballsCountOfCurrentOverModulo, scoreBoard.getCurrentStriker().getName());
+            logger.logPlayerOutMessage(overs, ballsCountOfCurrentOverModulo, scoreBoard.getCurrentStriker().getName());
         else
-            logger.printBallByBallMessage(overs, ballsCountOfCurrentOverModulo, scoreBoard.getCurrentStriker().getName(), scoreBoard.getCurrentRunCount(), getSuffixString(scoreBoard.getCurrentRunCount()));
+            logger.logBallMessage(overs, ballsCountOfCurrentOverModulo, scoreBoard.getCurrentStriker().getName(), scoreBoard.getCurrentRunCount(), getSuffixString(scoreBoard.getCurrentRunCount()));
     }
 
     public void generateMatchSummary(List<Player> players, String playingTeam) {
@@ -55,15 +55,15 @@ public class Commentary {
 
     public void generateWonMessage(String playingTeam) {
         int totalRunsNeedToWin = Integer.parseInt(config.getValue("RUNS_NEEDED_TO_WIN"));
-        logger.printWonMessage(playingTeam, scoreBoard.getCurrentWicketLeft(), getSuffixString(scoreBoard.getCurrentWicketLeft()), totalRunsNeedToWin - scoreBoard.getCurrentBallsPlayed(), getSuffixString(totalRunsNeedToWin - scoreBoard.getCurrentBallsPlayed()));
+        logger.logWonMessage(playingTeam, scoreBoard.getCurrentWicketLeft(), getSuffixString(scoreBoard.getCurrentWicketLeft()), totalRunsNeedToWin - scoreBoard.getCurrentBallsPlayed(), getSuffixString(totalRunsNeedToWin - scoreBoard.getCurrentBallsPlayed()));
     }
 
     public void generateLostMessage(String playingTeam) {
-        logger.printLostMessage(playingTeam, scoreBoard.getCurrentRunsToWin(), getSuffixString(scoreBoard.getCurrentRunsToWin()));
+        logger.logLostMessage(playingTeam, scoreBoard.getCurrentRunsToWin(), getSuffixString(scoreBoard.getCurrentRunsToWin()));
     }
 
     public void generatePlayerScores(List<Player> players) {
-        players.forEach(player -> logger.printPlayerScore(player.getName(), player.getTotalRuns(), getPlayerOnCreaseSuffix(player, scoreBoard), player.getTotalBallsPlayed(), getSuffixString(player.getTotalBallsPlayed())));
+        players.forEach(player -> logger.logPlayerScore(player.getName(), player.getTotalRuns(), getPlayerOnCreaseSuffix(player, scoreBoard), player.getTotalBallsPlayed(), getSuffixString(player.getTotalBallsPlayed())));
     }
 
     private String getPlayerOnCreaseSuffix(Player player, ScoreBoard scoreBoard) {
