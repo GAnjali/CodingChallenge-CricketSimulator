@@ -60,7 +60,7 @@ public class Initializer {
         return new Commentary(scoreBoard, config);
     }
 
-    public ScoreBoard createInitialScoreBoard(List<Player> players) {
+    private ScoreBoard createInitialScoreBoard(List<Player> players) {
         return new ScoreBoard(players.get(0), players.get(1), 0, Integer.parseInt(config.getValue("WICKETS")), 0, Integer.parseInt(config.getValue("RUNS_NEEDED_TO_WIN")), false);
     }
 

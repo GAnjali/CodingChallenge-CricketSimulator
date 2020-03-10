@@ -7,7 +7,6 @@ public class CricketSimulator {
     public static void main(String[] args) throws IOException {
         Initializer initializer = new Initializer();
         Match match = initializer.initializeMatch();
-
         match.simulate();
     }
 }

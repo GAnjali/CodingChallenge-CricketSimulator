@@ -16,11 +16,7 @@ public class ChangeStrikeRule implements Rule {
     }
 
     private boolean needStrikeChange(ScoreBoard scoreBoard) {
-        return ((isOdd(scoreBoard.getCurrentRunCount()) || isOverComplete(scoreBoard.getCurrentBallsPlayed())) && scoreBoard.getCurrentRunCount()!= OUT);
-    }
-
-    private boolean isOverComplete(int ballsPlayed) {
-        return ballsPlayed % BALLS_PER_OVER == 0;
+        return ((isOdd(scoreBoard.getCurrentRunCount()) || scoreBoard.isOverStarts()) && scoreBoard.getCurrentRunCount() != OUT);
     }
 
     private boolean isOdd(int run) {
