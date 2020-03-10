@@ -3,6 +3,7 @@ package commentary;
 import config.Config;
 import models.Player;
 import models.ScoreBoard;
+import view.CommandLineLogger;
 import view.Logger;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class Commentary {
 
     public Commentary(ScoreBoard scoreBoard, Config config) {
         this.scoreBoard = scoreBoard;
-        logger = new Logger();
+        logger = new CommandLineLogger();
         this.config = config;
     }
 
